@@ -60,4 +60,8 @@ public class PokerHands {
         }
         return -1;
     }
+
+    public String handleTwoPair(String[] black, String[] white) {
+        return null;
+    }
 }
