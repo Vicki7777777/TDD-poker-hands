@@ -34,7 +34,12 @@ public class PokerHands {
         List<Integer> whiteFirsts = getFirstNumber(white);
         String winner = "White";
         int whitePair = getPairsNumber(whiteFirsts);
+        int blackPair = getPairsNumber(blackFirsts);
         String cardName = cardNames[whitePair];
+        if(whitePair<blackPair){
+            winner = "Black";
+            cardName = cardNames[blackPair];
+        }
         return String.format("%s wins. - Pair of %ss", winner, cardName);
     }
 
