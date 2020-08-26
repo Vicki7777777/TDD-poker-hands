@@ -72,14 +72,20 @@ public class PokerHands {
                 pairNumbers.add(value);
             }
         }
+        pairNumbers.sort(Comparator.reverseOrder());
         return pairNumbers;
     }
 
     public String handleTwoPair(String[] black, String[] white) {
         List<Integer> whiteFirsts = getFirstNumber(white);
+        List<Integer> blackFirsts = getFirstNumber(black);
         String winner = "White";
-        List<Integer> pairNumbers = getPairNumbers(whiteFirsts);
-        //"White wins. - Two Pair of Twos and Threes"
-        return String.format("%s wins. - Two Pair of %ss and %ss", winner,cardNames[pairNumbers.get(0)],cardNames[pairNumbers.get(1)]);
+        List<Integer> whitePairNumbers = getPairNumbers(whiteFirsts);
+        List<Integer> blackPairNumbers = getPairNumbers(blackFirsts);
+        if(whitePairNumbers.size() !=0 && blackPairNumbers.size() !=0 && whitePairNumbers.get(0)<blackPairNumbers.get(0)){
+            winner = "Black";
+            return String.format("%s wins. - Two Pair of %ss and %ss", winner,cardNames[blackPairNumbers.get(1)],cardNames[blackPairNumbers.get(0)]);
+        }
+        return String.format("%s wins. - Two Pair of %ss and %ss", winner,cardNames[whitePairNumbers.get(1)],cardNames[whitePairNumbers.get(0)]);
     }
 }
