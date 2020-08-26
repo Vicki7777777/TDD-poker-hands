@@ -39,6 +39,8 @@ public class PokerHands {
         if(whitePair<blackPair){
             winner = "Black";
             cardName = cardNames[blackPair];
+        }else if (whitePair == blackPair){
+            return "Tie";
         }
         return String.format("%s wins. - Pair of %ss", winner, cardName);
     }
