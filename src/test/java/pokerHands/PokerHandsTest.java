@@ -29,4 +29,16 @@ public class PokerHandsTest {
         assertEquals("Tie", result);
 
     }
+
+    @Test
+    public void should_white_wins_when_handlePair_given_2H3D5S9CKD_and_3H3D5S9CKD() {
+        //given
+        String[] black = {"1H", "2D", "3S", "4C", "KD"};
+        String[] white = {"3H", "3D", "5S", "9C", "KD"};
+        //when
+        PokerHands pokerHands = new PokerHands();
+        String result = pokerHands.handlePair(black, white);
+        //then
+        assertEquals("White wins. - Pair of Fives", result);
+    }
 }

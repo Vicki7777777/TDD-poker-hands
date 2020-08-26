@@ -30,4 +30,8 @@ public class PokerHands {
         }
         return String.format("%s wins. - with high card: %s", winner,cardName);
     }
+
+    public String handlePair(String[] black, String[] white) {
+        return null;
+    }
 }
