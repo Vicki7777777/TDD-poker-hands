@@ -85,6 +85,11 @@ public class PokerHands {
         if(whitePairNumbers.size() !=0 && blackPairNumbers.size() !=0 && whitePairNumbers.get(0)<blackPairNumbers.get(0)){
             winner = "Black";
             return String.format("%s wins. - Two Pair of %ss and %ss", winner,cardNames[blackPairNumbers.get(1)],cardNames[blackPairNumbers.get(0)]);
+        }else if(whitePairNumbers.size() !=0 && blackPairNumbers.size() !=0 && whitePairNumbers.get(0).equals(blackPairNumbers.get(0))){
+            return "Tie";
+        }else if(blackPairNumbers.size() == 2){
+            winner = "Black";
+            return String.format("%s wins. - Two Pair of %ss and %ss", winner,cardNames[blackPairNumbers.get(1)],cardNames[blackPairNumbers.get(0)]);
         }
         return String.format("%s wins. - Two Pair of %ss and %ss", winner,cardNames[whitePairNumbers.get(1)],cardNames[whitePairNumbers.get(0)]);
     }
