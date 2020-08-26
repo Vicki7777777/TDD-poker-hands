@@ -39,6 +39,8 @@ public class PokerHandsTest {
         PokerHands pokerHands = new PokerHands();
         String result = pokerHands.handlePair(black, white);
         //then
-        assertEquals("White wins. - Pair of Fives", result);
+        assertEquals("White wins. - Pair of Threes", result);
     }
+
+
 }
