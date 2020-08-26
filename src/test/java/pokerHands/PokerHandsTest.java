@@ -89,4 +89,16 @@ public class PokerHandsTest {
         //then
         assertEquals("Black wins. - Two Pair of Twos and Fives", result);
     }
+
+    @Test
+    public void should_Tie_when_handle_handleTwoPair_given_2H2D5S5CKD_and_2C2S5H5DKS() {
+        //given
+        String[] black = {"2H", "2D", "5S", "5C", "KD"};
+        String[] white = {"2C", "2S", "5H", "5D", "KS"};
+        //when
+        PokerHands pokerHands = new PokerHands();
+        String result = pokerHands.handleTwoPair(black, white);
+        //then
+        assertEquals("Tie", result);
+    }
 }
