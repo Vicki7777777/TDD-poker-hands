@@ -21,6 +21,8 @@ public class PokerHands {
         if(blackMax<whiteMax){
             winner = "White";
             max = whiteMax;
+        }else if(blackMax.equals(whiteMax)){
+            return "Tie";
         }
         String cardName = max.toString();
         if(max>10){
