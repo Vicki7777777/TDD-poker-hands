@@ -42,14 +42,6 @@ public class PokerHands {
         return Arrays.stream(pokers).map(card -> cards.indexOf(card.charAt(0)) + 1).collect(Collectors.toList());
     }
 
-    public boolean isRepeat(List<Integer> firsts) {
-        Set<Integer> firstsSet = new HashSet<>(firsts);
-        boolean repeatResult = false;
-        if (firsts.size() == firstsSet.size()) {
-            repeatResult = true;
-        }
-        return repeatResult;
-    }
 
     public Integer getPairsNumber(List<Integer> firsts) {
         int[] buget = new int[15];
