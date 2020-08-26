@@ -20,8 +20,8 @@ public class PokerHandsTest {
     @Test
     public void should_return_Tie_when_handleHighCard_given_1H2D3S4CKD_and_5H6D7S8CKD() {
         //given
-        String[] black = {"2H", "3D", "5S", "9C", "KD"};
-        String[] white = {"2H", "3D", "5S", "9C", "KD"};
+        String[] black = {"1H", "2D", "3S", "4C", "KD"};
+        String[] white = {"5H", "6D", "7S", "8C", "KD"};
         //when
         PokerHands pokerHands = new PokerHands();
         String result = pokerHands.handleHighCard(black, white);

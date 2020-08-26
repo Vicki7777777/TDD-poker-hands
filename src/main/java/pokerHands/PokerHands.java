@@ -17,14 +17,14 @@ public class PokerHands {
         Integer blackMax = blackFirsts.stream().max(Integer::compare).orElse(-1);
         Integer whiteMax = whiteFirsts.stream().max(Integer::compare).orElse(-1);
         String winner = "Black";
-        Integer max = blackMax;
+        int max = blackMax;
         if(blackMax<whiteMax){
             winner = "White";
             max = whiteMax;
         }else if(blackMax.equals(whiteMax)){
             return "Tie";
         }
-        String cardName = max.toString();
+        String cardName = Integer.toString(max);
         if(max>10){
             cardName = cardNames[max-10];
         }
