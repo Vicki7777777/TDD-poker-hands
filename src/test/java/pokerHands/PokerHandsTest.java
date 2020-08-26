@@ -42,5 +42,17 @@ public class PokerHandsTest {
         assertEquals("White wins. - Pair of Threes", result);
     }
 
+    @Test
+    public void should_white_wins_when_handlePair_given_2H3D5SKCKD_and_3H3D5S9CKD() {
+        //given
+        String[] black = {"1H", "2D", "3S", "KC", "KD"};
+        String[] white = {"3H", "3D", "5S", "9C", "KD"};
+        //when
+        PokerHands pokerHands = new PokerHands();
+        String result = pokerHands.handlePair(black, white);
+        //then
+        assertEquals("Black wins. - Pair of Kings", result);
+    }
+
 
 }
