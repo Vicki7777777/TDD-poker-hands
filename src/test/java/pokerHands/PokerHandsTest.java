@@ -18,10 +18,10 @@ public class PokerHandsTest {
     }
 
     @Test
-    public void should_return_Tie_when_handleHighCard_given_1H2D3S4CKD_and_5H6D7S8CKD() {
+    public void should_return_Tie_when_handleHighCard_given_1H2D3S4CKD_and_5H6D7S8CKC() {
         //given
         String[] black = {"1H", "2D", "3S", "4C", "KD"};
-        String[] white = {"5H", "6D", "7S", "8C", "KD"};
+        String[] white = {"5H", "6D", "7S", "8C", "KC"};
         //when
         PokerHands pokerHands = new PokerHands();
         String result = pokerHands.handleHighCard(black, white);
@@ -31,10 +31,10 @@ public class PokerHandsTest {
     }
 
     @Test
-    public void should_white_wins_when_handlePair_given_2H3D5S9CKD_and_3H3D5S9CKD() {
+    public void should_white_wins_when_handlePair_given_2H3D5S9CKD_and_3H3D5S9CKC() {
         //given
         String[] black = {"1H", "2D", "3S", "4C", "KD"};
-        String[] white = {"3H", "3D", "5S", "9C", "KD"};
+        String[] white = {"3H", "3D", "5S", "9C", "KC"};
         //when
         PokerHands pokerHands = new PokerHands();
         String result = pokerHands.handlePair(black, white);
@@ -43,10 +43,10 @@ public class PokerHandsTest {
     }
 
     @Test
-    public void should_white_wins_when_handlePair_given_2H3D5SKCKD_and_3H3D5S9CKD() {
+    public void should_white_wins_when_handlePair_given_2H3D5SKCKD_and_3H3D5S9CKH() {
         //given
         String[] black = {"1H", "2D", "3S", "KC", "KD"};
-        String[] white = {"3H", "3D", "5S", "9C", "KD"};
+        String[] white = {"3H", "3D", "5S", "9C", "KH"};
         //when
         PokerHands pokerHands = new PokerHands();
         String result = pokerHands.handlePair(black, white);
@@ -55,14 +55,24 @@ public class PokerHandsTest {
     }
 
     @Test
-    public void should_Tie_when_handlePair_given_2H3D5SKCKD_and_KH3D5S9CKD() {
+    public void should_Tie_when_handlePair_given_2H3D5SKCKD_and_KH3D5S9CKS() {
         //given
         String[] black = {"1H", "2D", "3S", "KC", "KD"};
-        String[] white = {"KH", "3D", "5S", "9C", "KD"};
+        String[] white = {"KH", "3D", "5S", "9C", "KS"};
         //when
         PokerHands pokerHands = new PokerHands();
         String result = pokerHands.handlePair(black, white);
         //then
         assertEquals("Tie", result);
+    }
+
+    @Test
+    public void should_black_wins_when_handle_handleTwoPair_given_2H2DSKCKD_and_2H2D3S3CKD() {
+        //given
+
+        //when
+
+        //then
+
     }
 }
