@@ -1,5 +1,7 @@
 package pokerHands;
 
+import org.omg.PortableInterceptor.INACTIVE;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -61,7 +63,23 @@ public class PokerHands {
         return -1;
     }
 
+    public List<Integer> getPairNumbers(List<Integer> pokers){
+        int[] buckets = new int[cardNames.length];
+        List<Integer> pairNumbers=new ArrayList<>();
+        for(Integer value : pokers){
+            buckets[value]++;
+            if(buckets[value]==2){
+                pairNumbers.add(value);
+            }
+        }
+        return pairNumbers;
+    }
+
     public String handleTwoPair(String[] black, String[] white) {
-        return null;
+        List<Integer> whiteFirsts = getFirstNumber(white);
+        String winner = "White";
+        List<Integer> pairNumbers = getPairNumbers(whiteFirsts);
+        //"White wins. - Two Pair of Twos and Threes"
+        return String.format("%s wins. - Two Pair of %ss and %ss", winner,cardNames[pairNumbers.get(0)],cardNames[pairNumbers.get(1)]);
     }
 }
