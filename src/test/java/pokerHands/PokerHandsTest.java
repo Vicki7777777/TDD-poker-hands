@@ -101,4 +101,17 @@ public class PokerHandsTest {
         //then
         assertEquals("Tie", result);
     }
+
+    @Test
+    public void should_white_wins_when_return_handleThreeOfAKind_given_3H3D3S5S9Cand2H2D5S5CKD() {
+        //given
+        String[] black = {"2H", "2D", "5S", "5C", "KD"};
+        String[] white = {"3H", "3D", "3S", "5S", "9C"};
+        //when
+        PokerHands pokerHands = new PokerHands();
+        String result = pokerHands.handleThreeOfAKind(black, white);
+        //then
+        assertEquals("White wins. - Three of a kind: Threes", result);
+
+    }
 }
