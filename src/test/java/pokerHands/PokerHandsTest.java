@@ -43,7 +43,7 @@ public class PokerHandsTest {
     }
 
     @Test
-    public void should_white_wins_when_handlePair_given_2H3D5SKCKD_and_3H3D5S9CKH() {
+    public void should_white_wins_when_handlePair_given_1H2D3SKCKD_and_3H3D5S9CKH() {
         //given
         String[] black = {"1H", "2D", "3S", "KC", "KD"};
         String[] white = {"3H", "3D", "5S", "9C", "KH"};
@@ -55,7 +55,7 @@ public class PokerHandsTest {
     }
 
     @Test
-    public void should_Tie_when_handlePair_given_2H3D5SKCKD_and_KH3D5S9CKS() {
+    public void should_Tie_when_handlePair_given_1H2D3SKCKD_and_KH3D5S9CKS() {
         //given
         String[] black = {"1H", "2D", "3S", "KC", "KD"};
         String[] white = {"KH", "3D", "5S", "9C", "KS"};
@@ -103,7 +103,7 @@ public class PokerHandsTest {
     }
 
     @Test
-    public void should_white_wins_when_return_handleThreeOfAKind_given_3H3D3S5S9Cand2H2D5S5CKD() {
+    public void should_white_wins_when_return_handleThreeOfAKind_given_2H2D5S5CKDand3H3D3S5S9C() {
         //given
         String[] black = {"2H", "2D", "5S", "5C", "KD"};
         String[] white = {"3H", "3D", "3S", "5S", "9C"};
@@ -114,7 +114,7 @@ public class PokerHandsTest {
         assertEquals("White wins. - Three of a kind: Threes", result);
     }
     @Test
-    public void should_return_Tie_when_handleThreeOfAKind_given_3H3D3S5S9Cand3H3D3S5S9() {
+    public void should_return_Tie_when_handleThreeOfAKind_given_3H3D3S5S9Cand3H3D3S5S9C() {
         //given
         String[] black = {"3H", "3D", "3S", "5S", "9C"};
         String[] white = {"3H", "3D", "3S", "5S", "9C"};
@@ -125,7 +125,7 @@ public class PokerHandsTest {
         assertEquals("Tie", result);
     }
     @Test
-    public void should_black_wins_when_handleThreeOfAKind_given_2H2D5S5CKDand3H3D3S5S9() {
+    public void should_black_wins_when_handleThreeOfAKind_given_2H2D5S5CKDand3H3D3S5S9C() {
         //given
         String[] white = {"2H", "2D", "5S", "5C", "KD"};
         String[] black = {"3H", "3D", "3S", "5S", "9C"};
@@ -161,7 +161,7 @@ public class PokerHandsTest {
     }
 
     @Test
-    public void should_tie_when_handleStraight_given_3H4D5S6C7D_3H4D5S6S7C() {
+        public void should_tie_when_handleStraight_given_3H4D5S6C7D_3H4D5S6C7D() {
         //given
         String[] white = {"3H", "4D", "5S", "6C", "7D"};
         String[] black = {"3H", "4D", "5S", "6C", "7D"};
@@ -173,7 +173,7 @@ public class PokerHandsTest {
     }
 
     @Test
-    public void should_white_wins_when_handleFlush_given_3H2H9H6H7H_3H4D5S6S7C() {
+    public void should_white_wins_when_handleFlush_given_3H4D5S6C7D_3H2H9H6H7H() {
         //given
         String[] white = {"3H", "4D", "5S", "6C", "7D"};
         String[] black = {"3H", "2H", "9H", "6H", "7H"};
@@ -185,7 +185,7 @@ public class PokerHandsTest {
     }
 
     @Test
-    public void should_tie_when_handleFlush_given_3H4D5S6S7C_3H4D5S6S7C() {
+    public void should_tie_when_handleFlush_given_3H2H9H6H7H_3H2H9H6H7H() {
         //given
         String[] white = {"3H", "2H", "9H", "6H", "7H"};
         String[] black = {"3H", "2H", "9H", "6H", "7H"};
@@ -195,4 +195,5 @@ public class PokerHandsTest {
         //then
         assertEquals("Tie", result);
     }
+
 }
