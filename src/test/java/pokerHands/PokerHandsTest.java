@@ -220,4 +220,16 @@ public class PokerHandsTest {
         assertEquals("Black wins. - with full house: Four over Six", result);
     }
 
+    @Test
+    public void should_Tie_when_handleFullHouse_given_3H3D3C6H6D_3H3D3C6H6D() {
+        //given
+        String[] white = {"3H", "3D", "3C", "6H", "6D"};
+        String[] black = {"3H", "3D", "3C", "6H", "6D"};
+        //when
+        PokerHands pokerHands = new PokerHands();
+        String result = pokerHands.handleFullHouse(black, white);
+        //then
+        assertEquals("Tie", result);
+    }
+
 }
