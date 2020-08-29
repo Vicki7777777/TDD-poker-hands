@@ -252,10 +252,17 @@ public class PokerHands {
         Integer blackFourOfAKindNumbers = getFourOfAKindNumbers(blackFirsts);
         if (whiteFourOfAKindNumbers == null){
             winner = "Black";
-            return String.format("%s wins. - Three of a kind: %ss", winner,cardNames[blackFourOfAKindNumbers]);
+            return String.format("%s wins. - Four of a kind: %ss", winner,cardNames[blackFourOfAKindNumbers]);
         }
         if (blackFourOfAKindNumbers == null){
-            return String.format("%s wins. - Three of a kind: %ss", winner,cardNames[whiteFourOfAKindNumbers]);
+            return String.format("%s wins. - Four of a kind: %ss", winner,cardNames[whiteFourOfAKindNumbers]);
+        }
+        if (blackFourOfAKindNumbers>whiteFourOfAKindNumbers){
+            winner = "Black";
+            return String.format("%s wins. - Four of a kind: %ss", winner,cardNames[blackFourOfAKindNumbers]);
+        }
+        if (blackFourOfAKindNumbers < whiteFourOfAKindNumbers){
+            return String.format("%s wins. - Four of a kind: %ss", winner,cardNames[whiteFourOfAKindNumbers]);
         }
         return null;
     }
