@@ -245,6 +245,30 @@ public class PokerHands {
     }
 
     public String handleFourOfAKind(String[] black, String[] white) {
+        List<Integer> whiteFirsts = getFirstNumber(white);
+        List<Integer> blackFirsts = getFirstNumber(black);
+        String winner = "White";
+        Integer whiteFourOfAKindNumbers = getFourOfAKindNumbers(whiteFirsts);
+        Integer blackFourOfAKindNumbers = getFourOfAKindNumbers(blackFirsts);
+        if (whiteFourOfAKindNumbers == null){
+            winner = "Black";
+            return String.format("%s wins. - Three of a kind: %ss", winner,cardNames[blackFourOfAKindNumbers]);
+        }
+        if (blackFourOfAKindNumbers == null){
+            return String.format("%s wins. - Three of a kind: %ss", winner,cardNames[whiteFourOfAKindNumbers]);
+        }
         return null;
+    }
+
+    private Integer getFourOfAKindNumbers(List<Integer> pokers) {
+        int[] buckets = new int[cardNames.length];
+        Integer fourOfAKindNumbers= null;
+        for(Integer value : pokers){
+            buckets[value]++;
+            if(buckets[value]==4){
+                fourOfAKindNumbers = value;
+            }
+        }
+        return fourOfAKindNumbers;
     }
 }
