@@ -264,7 +264,7 @@ public class PokerHands {
         if (blackFourOfAKindNumbers < whiteFourOfAKindNumbers){
             return String.format("%s wins. - Four of a kind: %ss", winner,cardNames[whiteFourOfAKindNumbers]);
         }
-        return null;
+        return "Tie";
     }
 
     private Integer getFourOfAKindNumbers(List<Integer> pokers) {
