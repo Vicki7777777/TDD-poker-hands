@@ -193,6 +193,42 @@ public class PokerHands {
     }
 
     public String handleFullHouse(String[] black, String[] white) {
+        List<Integer> whiteFirsts = getFirstNumber(white);
+        List<Integer> blackFirsts = getFirstNumber(black);
+        String winner = "White";
+        Map<String,Integer> whiteFullHouse = getFullHouse(whiteFirsts);
+        Map<String,Integer> blackFullHouse = getFullHouse(blackFirsts);
+        if(whiteFullHouse == null && blackFullHouse != null){
+            winner = "Black";
+            return String.format("%s wins. - with full house: %s over %s", winner,cardNames[blackFullHouse.get("kind")],cardNames[blackFullHouse.get("pair")]);
+        }
+        if(blackFullHouse == null && whiteFullHouse != null){
+//            Integer test = whiteFullHouse.get("king");
+//            String test2 = cardNames[whiteFullHouse.get("pair")];
+            return String.format("%s wins. - with full house: %s over %s", winner,cardNames[whiteFullHouse.get("kind")],cardNames[whiteFullHouse.get("pair")]);
+        }
         return null;
+    }
+
+    private Map<String,Integer> getFullHouse(List<Integer> pokers) {
+        Set<Integer> pokersSet = new HashSet<>(pokers);
+        Map<String,Integer> pokersDetail= new HashMap<>();
+        if(pokersSet.size() != 2){
+            return null;
+        }
+        int[] budget = new int[cardNames.length];
+        for (int value : pokers) {
+            budget[value]++;
+        }
+        for(int i = 0;i<budget.length-1;i++){
+            if(budget[i] == 3){
+                pokersDetail.put("kind",i);
+            }
+            if(budget[i] == 2){
+                pokersDetail.put("pair",i);
+            }
+        }
+        return pokersDetail;
+
     }
 }

@@ -205,7 +205,7 @@ public class PokerHandsTest {
         PokerHands pokerHands = new PokerHands();
         String result = pokerHands.handleFullHouse(black, white);
         //then
-        assertEquals("with full house: 3 over 6", result);
+        assertEquals("White wins. - with full house: Three over Six", result);
     }
 
 }
