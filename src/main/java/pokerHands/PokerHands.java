@@ -212,6 +212,13 @@ public class PokerHands {
         if(blackFullHouse.get("kind") < whiteFullHouse.get("kind")){
             return String.format("%s wins. - with full house: %s over %s", winner,cardNames[whiteFullHouse.get("kind")],cardNames[whiteFullHouse.get("pair")]);
         }
+        if(blackFullHouse.get("kind").equals(whiteFullHouse.get("kind")) && blackFullHouse.get("pair") > whiteFullHouse.get("pair")){
+            winner = "Black";
+            return String.format("%s wins. - with full house: %s over %s", winner,cardNames[blackFullHouse.get("kind")],cardNames[blackFullHouse.get("pair")]);
+        }
+        if(blackFullHouse.get("kind").equals(whiteFullHouse.get("kind")) && blackFullHouse.get("pair") < whiteFullHouse.get("pair")){
+            return String.format("%s wins. - with full house: %s over %s", winner,cardNames[whiteFullHouse.get("kind")],cardNames[whiteFullHouse.get("pair")]);
+        }
         return "Tie";
     }
 
