@@ -4,11 +4,16 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class PokerHands {
-    String cards = "123456789TJQKA";
+    String cards = "0123456789TJQKA";
     String[] cardNames = {
             "Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten", "Jack", "Queen", "King", "Ace"
     };
-
+    Map<String,String> cardSuit = new HashMap<String,String>(){{
+        put("H","Hearts");
+        put("C","Clubs");
+        put("D","Diamonds");
+        put("S","Spades");
+    }};
     public String handleHighCard(String[] black, String[] white) {
         List<Integer> blackFirsts = getFirstNumber(black);
         List<Integer> whiteFirsts = getFirstNumber(white);
@@ -46,9 +51,11 @@ public class PokerHands {
     }
 
     public List<Integer> getFirstNumber(String[] pokers) {
-        return Arrays.stream(pokers).map(card -> cards.indexOf(card.charAt(0)) + 1).collect(Collectors.toList());
+        return Arrays.stream(pokers).map(card -> cards.indexOf(card.charAt(0))).collect(Collectors.toList());
     }
-
+    public List<String> getSuits(String[] pokers) {
+        return Arrays.stream(pokers).map(card -> String.valueOf(card.charAt(1))).collect(Collectors.toList());
+    }
 
     public Integer getPairsNumber(List<Integer> firsts) {
         int[] buget = new int[15];
@@ -161,6 +168,27 @@ public class PokerHands {
     }
 
     public String handleFlush(String[] black, String[] white) {
-        return null;
+        List<String> whiteSuits= getSuits(white);
+        List<String> blackSuits = getSuits(black);
+        String winner = "White";
+        String whiteFlushSuites = getFlush(whiteSuits);
+        String blackFlushSuites = getFlush(blackSuits);
+        if(whiteFlushSuites == null){
+            winner = "Black";
+            return String.format("%s wins. - Flush:Suit is %s", winner,cardSuit.get(blackFlushSuites));
+        }
+        if(blackFlushSuites == null){
+            return String.format("%s wins. - Flush:Suit is %s", winner,cardSuit.get(whiteFlushSuites));
+        }
+        return "Tie";
+    }
+
+    private String getFlush(List<String> suits) {
+        for(int i = 0;i< suits.size()-1;i++){
+            if(!suits.get(i).equals(suits.get(i + 1))){
+                return null;
+            }
+        }
+        return suits.get(0);
     }
 }
