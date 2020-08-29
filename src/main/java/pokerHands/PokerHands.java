@@ -93,4 +93,29 @@ public class PokerHands {
         }
         return String.format("%s wins. - Two Pair of %ss and %ss", winner,cardNames[whitePairNumbers.get(1)],cardNames[whitePairNumbers.get(0)]);
     }
+
+    private Integer getThreeOfPairNumbers(List<Integer> pokers) {
+        int[] buckets = new int[cardNames.length];
+        Integer threeOfPairNumbers= null;
+        for(Integer value : pokers){
+            buckets[value]++;
+            if(buckets[value]==3){
+                threeOfPairNumbers = value;
+            }
+        }
+        return threeOfPairNumbers;
+    }
+    public String handleThreeOfAKind(String[] black, String[] white) {
+        List<Integer> whiteFirsts = getFirstNumber(white);
+        List<Integer> blackFirsts = getFirstNumber(black);
+        String winner = "White";
+        Integer whiteThreeOfPairNumbers = getThreeOfPairNumbers(whiteFirsts);
+        Integer blackThreeOfPairNumbers = getThreeOfPairNumbers(blackFirsts);
+        if (blackThreeOfPairNumbers != null && blackThreeOfPairNumbers>whiteThreeOfPairNumbers){
+            winner = "Black";
+            return String.format("%s wins. - Three of a kind: %ss", winner,cardNames[blackThreeOfPairNumbers]);
+        }
+        return String.format("%s wins. - Three of a kind: %ss", winner,cardNames[whiteThreeOfPairNumbers]);
+    }
+
 }
