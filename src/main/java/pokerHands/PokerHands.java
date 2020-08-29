@@ -248,34 +248,46 @@ public class PokerHands {
         List<Integer> whiteFirsts = getFirstNumber(white);
         List<Integer> blackFirsts = getFirstNumber(black);
         String winner = "White";
-        Integer whiteFourOfAKindNumbers = getFourOfAKindNumbers(whiteFirsts);
-        Integer blackFourOfAKindNumbers = getFourOfAKindNumbers(blackFirsts);
-        if (whiteFourOfAKindNumbers == null){
+        Map<String,Integer> whiteFourOfAKindNumbers = getFourOfAKindNumbers(whiteFirsts);
+        Map<String,Integer> blackFourOfAKindNumbers = getFourOfAKindNumbers(blackFirsts);
+        if (whiteFourOfAKindNumbers.get("kind") == null){
             winner = "Black";
-            return String.format("%s wins. - Four of a kind: %ss", winner,cardNames[blackFourOfAKindNumbers]);
+            return String.format("%s wins. - Four of a kind: %ss", winner,cardNames[blackFourOfAKindNumbers.get("kind") ]);
         }
-        if (blackFourOfAKindNumbers == null){
-            return String.format("%s wins. - Four of a kind: %ss", winner,cardNames[whiteFourOfAKindNumbers]);
+        if (blackFourOfAKindNumbers.get("kind")  == null){
+            return String.format("%s wins. - Four of a kind: %ss", winner,cardNames[whiteFourOfAKindNumbers.get("kind") ]);
         }
-        if (blackFourOfAKindNumbers>whiteFourOfAKindNumbers){
+        if (blackFourOfAKindNumbers.get("kind") >whiteFourOfAKindNumbers.get("kind") ){
             winner = "Black";
-            return String.format("%s wins. - Four of a kind: %ss", winner,cardNames[blackFourOfAKindNumbers]);
+            return String.format("%s wins. - Four of a kind: %ss", winner,cardNames[blackFourOfAKindNumbers.get("kind") ]);
         }
-        if (blackFourOfAKindNumbers < whiteFourOfAKindNumbers){
-            return String.format("%s wins. - Four of a kind: %ss", winner,cardNames[whiteFourOfAKindNumbers]);
+        if (blackFourOfAKindNumbers.get("kind")  < whiteFourOfAKindNumbers.get("kind") ){
+            return String.format("%s wins. - Four of a kind: %ss", winner,cardNames[whiteFourOfAKindNumbers.get("kind") ]);
+        }
+        if(blackFourOfAKindNumbers.get("kind").equals(whiteFourOfAKindNumbers.get("kind")) && blackFourOfAKindNumbers.get("single") > whiteFourOfAKindNumbers.get("single")){
+            winner = "Black";
+            return String.format("%s wins. - Four of a kind: %ss", winner,cardNames[blackFourOfAKindNumbers.get("kind") ]);
+        }
+        if(blackFourOfAKindNumbers.get("kind").equals(whiteFourOfAKindNumbers.get("kind")) && blackFourOfAKindNumbers.get("single") < whiteFourOfAKindNumbers.get("single")){
+            return String.format("%s wins. - Four of a kind: %ss", winner,cardNames[whiteFourOfAKindNumbers.get("kind") ]);
         }
         return "Tie";
     }
 
-    private Integer getFourOfAKindNumbers(List<Integer> pokers) {
+    private Map<String,Integer> getFourOfAKindNumbers(List<Integer> pokers) {
         int[] buckets = new int[cardNames.length];
-        Integer fourOfAKindNumbers= null;
+        Map<String,Integer> pokersDetail= new HashMap<>();
         for(Integer value : pokers){
             buckets[value]++;
-            if(buckets[value]==4){
-                fourOfAKindNumbers = value;
+        }
+        for(int i = 0;i<buckets.length-1;i++){
+            if(buckets[i] == 4){
+                pokersDetail.put("kind",i);
+            }
+            if(buckets[i] == 1){
+                pokersDetail.put("single",i);
             }
         }
-        return fourOfAKindNumbers;
+        return pokersDetail;
     }
 }
