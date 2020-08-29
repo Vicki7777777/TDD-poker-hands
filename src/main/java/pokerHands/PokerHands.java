@@ -243,4 +243,8 @@ public class PokerHands {
         return pokersDetail;
 
     }
+
+    public String handleFourOfAKind(String[] black, String[] white) {
+        return null;
+    }
 }

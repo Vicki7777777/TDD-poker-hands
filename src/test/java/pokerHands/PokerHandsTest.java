@@ -243,4 +243,16 @@ public class PokerHandsTest {
         //then
         assertEquals("White wins. - with full house: Three over Six", result);
     }
+
+    @Test
+    public void should_white_win_when_handleFourOfAKind_given_3H3D3C3H6D_3H3D3C5H5D() {
+        //given
+        String[] white = {"3H", "3D", "3C", "3H", "6D"};
+        String[] black = {"3H", "3D", "3C", "5H", "5D"};
+        //when
+        PokerHands pokerHands = new PokerHands();
+        String result = pokerHands.handleFourOfAKind(black, white);
+        //then
+        assertEquals("White wins. - Three of a kind: Threes", result);
+    }
 }
