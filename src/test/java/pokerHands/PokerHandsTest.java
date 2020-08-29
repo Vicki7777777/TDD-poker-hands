@@ -291,4 +291,16 @@ public class PokerHandsTest {
         //then
         assertEquals("Black wins. - Four of a kind: Threes", result);
     }
+
+    @Test
+    public void black_win_when_handleStraightFlush_given_3H3D3C3H6D_3C4C5C6C7C() {
+        //given
+        String[] white = {"3H", "3D", "3C", "3H", "6D"};
+        String[] black = {"3C", "4C", "5C", "6C", "7C"};
+        //when
+        PokerHands pokerHands = new PokerHands();
+        String result = pokerHands.handleStraightFlush(black, white);
+        //then
+        assertEquals("Black wins. - Straight Flush", result);
+    }
 }

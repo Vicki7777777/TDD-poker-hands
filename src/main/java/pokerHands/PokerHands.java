@@ -290,4 +290,8 @@ public class PokerHands {
         }
         return pokersDetail;
     }
+
+    public String handleStraightFlush(String[] black, String[] white) {
+        return null;
+    }
 }
