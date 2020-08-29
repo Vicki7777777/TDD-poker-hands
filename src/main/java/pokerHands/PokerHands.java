@@ -159,4 +159,8 @@ public class PokerHands {
         }
         return pokers.get(0);
     }
+
+    public String handleFlush(String[] black, String[] white) {
+        return null;
+    }
 }

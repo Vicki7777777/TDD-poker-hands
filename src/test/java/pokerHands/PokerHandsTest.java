@@ -171,4 +171,16 @@ public class PokerHandsTest {
         //then
         assertEquals("Tie", result);
     }
+
+    @Test
+    public void should_white_wins_when_handleFlush_given_3H2H9H6H7H_3H4D5S6S7C() {
+        //given
+        String[] white = {"3H", "4D", "5S", "6C", "7D"};
+        String[] black = {"3H", "2H", "9H", "6H", "7H"};
+        //when
+        PokerHands pokerHands = new PokerHands();
+        String result = pokerHands.handleFlush(black, white);
+        //then
+        assertEquals("Black wins. - Flush:Suit is Hearts", result);
+    }
 }
