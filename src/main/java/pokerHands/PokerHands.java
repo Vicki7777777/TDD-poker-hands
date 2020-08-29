@@ -212,7 +212,7 @@ public class PokerHands {
         if(blackFullHouse.get("kind") < whiteFullHouse.get("kind")){
             return String.format("%s wins. - with full house: %s over %s", winner,cardNames[whiteFullHouse.get("kind")],cardNames[whiteFullHouse.get("pair")]);
         }
-        return null;
+        return "Tie";
     }
 
     private Map<String,Integer> getFullHouse(List<Integer> pokers) {
