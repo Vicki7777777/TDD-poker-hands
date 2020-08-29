@@ -115,6 +115,9 @@ public class PokerHands {
             winner = "Black";
             return String.format("%s wins. - Three of a kind: %ss", winner,cardNames[blackThreeOfPairNumbers]);
         }
+        if (blackThreeOfPairNumbers !=null && whiteThreeOfPairNumbers != null && blackThreeOfPairNumbers.equals(whiteThreeOfPairNumbers)){
+            return "Tie";
+        }
         return String.format("%s wins. - Three of a kind: %ss", winner,cardNames[whiteThreeOfPairNumbers]);
     }
 
