@@ -267,4 +267,16 @@ public class PokerHandsTest {
         //then
         assertEquals("Black wins. - Four of a kind: Fours", result);
     }
+
+    @Test
+    public void should_tie_when_handleFourOfAKind_given_3H3D3C3H6D_3H3D3C3H6D() {
+        //given
+        String[] white = {"3H", "3D", "3C", "3H", "6D"};
+        String[] black = {"3H", "3D", "3C", "3H", "6D"};
+        //when
+        PokerHands pokerHands = new PokerHands();
+        String result = pokerHands.handleFourOfAKind(black, white);
+        //then
+        assertEquals("Tie", result);
+    }
 }
