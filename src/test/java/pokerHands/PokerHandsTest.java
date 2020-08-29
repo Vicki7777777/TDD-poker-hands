@@ -253,7 +253,7 @@ public class PokerHandsTest {
         PokerHands pokerHands = new PokerHands();
         String result = pokerHands.handleFourOfAKind(black, white);
         //then
-        assertEquals("White wins. - Three of a kind: Threes", result);
+        assertEquals("White wins. - Four of a kind: Threes", result);
     }
 
     @Test
@@ -265,6 +265,6 @@ public class PokerHandsTest {
         PokerHands pokerHands = new PokerHands();
         String result = pokerHands.handleFourOfAKind(black, white);
         //then
-        assertEquals("Black wins. - Three of a kind: Threes", result);
+        assertEquals("Black wins. - Four of a kind: Fours", result);
     }
 }
