@@ -301,11 +301,18 @@ public class PokerHands {
         Integer blackStraightNumbers = getStraight(blackFirsts);
         String whiteFlushSuites = getFlush(whiteSuits);
         String blackFlushSuites = getFlush(blackSuits);
-        if(whiteStraightNumbers == null){
+        if(whiteStraightNumbers == null || whiteFlushSuites == null){
             winner = "Black";
             return String.format("%s wins. - Straight Flush", winner);
         }
-        if(blackStraightNumbers == null){
+        if(blackStraightNumbers == null || blackFlushSuites == null){
+            return String.format("%s wins. - Straight Flush", winner);
+        }
+        if(blackStraightNumbers > whiteStraightNumbers){
+            winner = "Black";
+            return String.format("%s wins. - Straight Flush", winner);
+        }
+        if(blackStraightNumbers < whiteStraightNumbers){
             return String.format("%s wins. - Straight Flush", winner);
         }
         return null;
