@@ -111,14 +111,22 @@ public class PokerHands {
         String winner = "White";
         Integer whiteThreeOfPairNumbers = getThreeOfPairNumbers(whiteFirsts);
         Integer blackThreeOfPairNumbers = getThreeOfPairNumbers(blackFirsts);
-        if (blackThreeOfPairNumbers != null && blackThreeOfPairNumbers>whiteThreeOfPairNumbers){
+        if (whiteThreeOfPairNumbers == null){
             winner = "Black";
             return String.format("%s wins. - Three of a kind: %ss", winner,cardNames[blackThreeOfPairNumbers]);
         }
-        if (blackThreeOfPairNumbers !=null && whiteThreeOfPairNumbers != null && blackThreeOfPairNumbers.equals(whiteThreeOfPairNumbers)){
-            return "Tie";
+        if (blackThreeOfPairNumbers == null){
+            return String.format("%s wins. - Three of a kind: %ss", winner,cardNames[whiteThreeOfPairNumbers]);
         }
-        return String.format("%s wins. - Three of a kind: %ss", winner,cardNames[whiteThreeOfPairNumbers]);
+
+        if (blackThreeOfPairNumbers>whiteThreeOfPairNumbers){
+            winner = "Black";
+            return String.format("%s wins. - Three of a kind: %ss", winner,cardNames[blackThreeOfPairNumbers]);
+        }
+        if (blackThreeOfPairNumbers < whiteThreeOfPairNumbers){
+            return String.format("%s wins. - Three of a kind: %ss", winner,cardNames[whiteThreeOfPairNumbers]);
+        }
+        return "Tie";
     }
 
 }
