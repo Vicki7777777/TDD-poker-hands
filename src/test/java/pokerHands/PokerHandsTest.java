@@ -135,4 +135,16 @@ public class PokerHandsTest {
         //then
         assertEquals("Black wins. - Three of a kind: Threes", result);
     }
+
+    @Test
+    public void should_white_wins_when_handleStraight_given_3H4D5S6C7D_3H3D3S5S9() {
+        //given
+        String[] white = {"3H", "4D", "5S", "6C", "7D"};
+        String[] black = {"3H", "3D", "3S", "5S", "9C"};
+        //when
+        PokerHands pokerHands = new PokerHands();
+        String result = pokerHands.handleStraight(black, white);
+        //then
+        assertEquals("White wins. - Straight", result);
+    }
 }

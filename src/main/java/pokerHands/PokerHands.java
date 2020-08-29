@@ -129,4 +129,7 @@ public class PokerHands {
         return "Tie";
     }
 
+    public String handleStraight(String[] black, String[] white) {
+        return null;
+    }
 }
