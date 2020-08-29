@@ -1,7 +1,5 @@
 package pokerHands;
 
-import org.omg.PortableInterceptor.INACTIVE;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -130,6 +128,28 @@ public class PokerHands {
     }
 
     public String handleStraight(String[] black, String[] white) {
-        return null;
+        List<Integer> whiteFirsts = getFirstNumber(white);
+        List<Integer> blackFirsts = getFirstNumber(black);
+        String winner = "White";
+        Integer whiteStraightNumbers = getStraight(whiteFirsts);
+        Integer blackStraightNumbers = getStraight(blackFirsts);
+        if(whiteStraightNumbers == null){
+            winner = "Black";
+            return String.format("%s wins. - Straight:max is %s", winner,cardNames[blackStraightNumbers]);
+        }
+        if(blackStraightNumbers == null){
+            return String.format("%s wins. - Straight:max is %s", winner,cardNames[whiteStraightNumbers]);
+        }
+        return "Tie";
+    }
+
+    private Integer getStraight(List<Integer> pokers) {
+        pokers.sort(Comparator.reverseOrder());
+        for(int i = 0;i< pokers.size()-1;i++){
+            if(pokers.get(i+1) != pokers.get(i)-1){
+                return null;
+            }
+        }
+        return pokers.get(0);
     }
 }

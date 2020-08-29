@@ -145,6 +145,6 @@ public class PokerHandsTest {
         PokerHands pokerHands = new PokerHands();
         String result = pokerHands.handleStraight(black, white);
         //then
-        assertEquals("White wins. - Straight", result);
+        assertEquals("White wins. - Straight:max is Seven", result);
     }
 }
