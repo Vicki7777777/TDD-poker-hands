@@ -315,6 +315,6 @@ public class PokerHands {
         if(blackStraightNumbers < whiteStraightNumbers){
             return String.format("%s wins. - Straight Flush", winner);
         }
-        return null;
+        return "Tie";
     }
 }
