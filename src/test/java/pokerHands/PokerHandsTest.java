@@ -305,7 +305,7 @@ public class PokerHandsTest {
     }
 
     @Test
-    public void white_win_when_handleStraightFlush_given_3H4H5H6H7H8H_3C4C5C6C7C() {
+    public void white_win_when_handleStraightFlush_given_4H5H6H7H8H_3C4C5C6C7C() {
         //given
         String[] white = {"4H", "5H", "6H", "7H", "8H"};
         String[] black = {"3C", "4C", "5C", "6C", "7C"};
@@ -314,5 +314,17 @@ public class PokerHandsTest {
         String result = pokerHands.handleStraightFlush(black, white);
         //then
         assertEquals("White wins. - Straight Flush", result);
+    }
+
+    @Test
+    public void should_tie_when_handleStraightFlush_given_3H4H5H6H7H8H_3H4H5H6H7H8H() {
+        //given
+        String[] white = {"3H", "4H", "5H", "6H", "7H"};
+        String[] black = {"3H", "4H", "5H", "6H", "7H"};
+        //when
+        PokerHands pokerHands = new PokerHands();
+        String result = pokerHands.handleStraightFlush(black, white);
+        //then
+        assertEquals("Tie", result);
     }
 }
