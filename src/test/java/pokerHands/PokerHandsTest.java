@@ -159,4 +159,16 @@ public class PokerHandsTest {
         //then
         assertEquals("Black wins. - Straight:max is Eight", result);
     }
+
+    @Test
+    public void should_tie_when_handleStraight_given_3H4D5S6C7D_3H4D5S6S7C() {
+        //given
+        String[] white = {"3H", "4D", "5S", "6C", "7D"};
+        String[] black = {"3H", "4D", "5S", "6C", "7D"};
+        //when
+        PokerHands pokerHands = new PokerHands();
+        String result = pokerHands.handleStraight(black, white);
+        //then
+        assertEquals("Tie", result);
+    }
 }
