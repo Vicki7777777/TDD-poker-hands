@@ -198,13 +198,18 @@ public class PokerHands {
         String winner = "White";
         Map<String,Integer> whiteFullHouse = getFullHouse(whiteFirsts);
         Map<String,Integer> blackFullHouse = getFullHouse(blackFirsts);
-        if(whiteFullHouse == null && blackFullHouse != null){
+        if(whiteFullHouse == null){
             winner = "Black";
             return String.format("%s wins. - with full house: %s over %s", winner,cardNames[blackFullHouse.get("kind")],cardNames[blackFullHouse.get("pair")]);
         }
-        if(blackFullHouse == null && whiteFullHouse != null){
-//            Integer test = whiteFullHouse.get("king");
-//            String test2 = cardNames[whiteFullHouse.get("pair")];
+        if(blackFullHouse == null){
+            return String.format("%s wins. - with full house: %s over %s", winner,cardNames[whiteFullHouse.get("kind")],cardNames[whiteFullHouse.get("pair")]);
+        }
+        if(blackFullHouse.get("kind") > whiteFullHouse.get("kind")){
+            winner = "Black";
+            return String.format("%s wins. - with full house: %s over %s", winner,cardNames[blackFullHouse.get("kind")],cardNames[blackFullHouse.get("pair")]);
+        }
+        if(blackFullHouse.get("kind") < whiteFullHouse.get("kind")){
             return String.format("%s wins. - with full house: %s over %s", winner,cardNames[whiteFullHouse.get("kind")],cardNames[whiteFullHouse.get("pair")]);
         }
         return null;
