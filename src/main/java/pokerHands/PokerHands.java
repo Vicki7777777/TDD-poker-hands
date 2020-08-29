@@ -140,6 +140,13 @@ public class PokerHands {
         if(blackStraightNumbers == null){
             return String.format("%s wins. - Straight:max is %s", winner,cardNames[whiteStraightNumbers]);
         }
+        if(blackStraightNumbers > whiteStraightNumbers){
+            winner = "Black";
+            return String.format("%s wins. - Straight:max is %s", winner,cardNames[blackStraightNumbers]);
+        }
+        if(blackStraightNumbers < whiteStraightNumbers){
+            return String.format("%s wins. - Straight:max is %s", winner,cardNames[whiteStraightNumbers]);
+        }
         return "Tie";
     }
 
