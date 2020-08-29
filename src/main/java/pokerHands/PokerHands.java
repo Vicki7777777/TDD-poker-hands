@@ -292,6 +292,22 @@ public class PokerHands {
     }
 
     public String handleStraightFlush(String[] black, String[] white) {
+        List<Integer> whiteFirsts = getFirstNumber(white);
+        List<Integer> blackFirsts = getFirstNumber(black);
+        List<String> whiteSuits= getSuits(white);
+        List<String> blackSuits = getSuits(black);
+        String winner = "White";
+        Integer whiteStraightNumbers = getStraight(whiteFirsts);
+        Integer blackStraightNumbers = getStraight(blackFirsts);
+        String whiteFlushSuites = getFlush(whiteSuits);
+        String blackFlushSuites = getFlush(blackSuits);
+        if(whiteStraightNumbers == null){
+            winner = "Black";
+            return String.format("%s wins. - Straight Flush", winner);
+        }
+        if(blackStraightNumbers == null){
+            return String.format("%s wins. - Straight Flush", winner);
+        }
         return null;
     }
 }
