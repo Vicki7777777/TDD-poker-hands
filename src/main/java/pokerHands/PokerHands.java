@@ -191,4 +191,8 @@ public class PokerHands {
         }
         return suits.get(0);
     }
+
+    public String handleFullHouse(String[] black, String[] white) {
+        return null;
+    }
 }
