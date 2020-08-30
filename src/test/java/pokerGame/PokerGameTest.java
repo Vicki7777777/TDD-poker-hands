@@ -1,6 +1,8 @@
 package pokerGame;
 
+import inputMessage.InputMessage;
 import org.junit.jupiter.api.Test;
+import pokerHands.PokerHands;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,9 +12,9 @@ public class PokerGameTest {
         //given
         String[] white = {"3S", "3D", "3C", "3H", "6D"};
         String[] black = {"4C", "5C", "6C", "7C", "8C"};
-        PokerGame pokerGame = new PokerGame();
+        PokerGame pokerGame = new PokerGame(new InputMessage(),new PokerHands());
         //when
-        String pokersType = pokerGame.judgePokerHandsType(white,black);
+       String pokersType = pokerGame.judgePokerHandsType(white,black,null);
         //then
         assertEquals("STRAIGHT_FLUSH", pokersType);
     }
@@ -21,7 +23,7 @@ public class PokerGameTest {
     public void should_return_false_when_isStraightFlush_given_4C5C6C7C8S() {
         //given
         String[] pokers = {"4C", "5C", "6C", "7C", "8S"};
-        PokerGame pokerGame = new PokerGame();
+        PokerGame pokerGame = new PokerGame(new InputMessage(),new PokerHands());
         //when
         boolean result = pokerGame.isStraightFlush(pokers);
         //then
@@ -33,9 +35,9 @@ public class PokerGameTest {
         //given
         String[] white = {"3H", "3D", "3C", "3S", "6D"};
         String[] black = {"4H", "4D", "4C", "5H", "5D"};
-        PokerGame pokerGame = new PokerGame();
+        PokerGame pokerGame = new PokerGame(new InputMessage(),new PokerHands());
         //when
-        String pokersType = pokerGame.judgePokerHandsType(white,black);
+       String pokersType = pokerGame.judgePokerHandsType(white,black,null);
         //then
         assertEquals("FOUR_OF_A_KIND", pokersType);
     }
@@ -45,9 +47,9 @@ public class PokerGameTest {
         //given
         String[] white = {"3H", "3D", "3C", "6H", "6D"};
         String[] black = {"4H", "4D", "4C", "8H", "7H"};
-        PokerGame pokerGame = new PokerGame();
+        PokerGame pokerGame = new PokerGame(new InputMessage(),new PokerHands());
         //when
-        String pokersType = pokerGame.judgePokerHandsType(white,black);
+       String pokersType = pokerGame.judgePokerHandsType(white,black,null);
         //then
         assertEquals("FULL_HOUSE", pokersType);
     }
@@ -57,9 +59,9 @@ public class PokerGameTest {
         //given
         String[] white = {"3H", "2H", "9H", "6H", "7H"};
         String[] black = {"3C", "4C", "5H", "6S", "7S"};
-        PokerGame pokerGame = new PokerGame();
+        PokerGame pokerGame = new PokerGame(new InputMessage(),new PokerHands());
         //when
-        String pokersType = pokerGame.judgePokerHandsType(white,black);
+       String pokersType = pokerGame.judgePokerHandsType(white,black,null);
         //then
         assertEquals("FLUSH", pokersType);
     }
@@ -69,9 +71,9 @@ public class PokerGameTest {
         //given
         String[] white = {"3C", "4C", "5H", "6S", "7S"};
         String[] black = {"3H", "3D", "5S", "6C", "3S"};
-        PokerGame pokerGame = new PokerGame();
+        PokerGame pokerGame = new PokerGame(new InputMessage(),new PokerHands());
         //when
-        String pokersType = pokerGame.judgePokerHandsType(white,black);
+       String pokersType = pokerGame.judgePokerHandsType(white,black,null);
         //then
         assertEquals("STRAIGHT", pokersType);
     }
@@ -81,9 +83,9 @@ public class PokerGameTest {
         //given
         String[] white = {"3H", "3D", "5S", "6C", "3S"};
         String[] black = {"7H", "7D", "6S", "9C", "5D"};
-        PokerGame pokerGame = new PokerGame();
+        PokerGame pokerGame = new PokerGame(new InputMessage(),new PokerHands());
         //when
-        String pokersType = pokerGame.judgePokerHandsType(white,black);
+       String pokersType = pokerGame.judgePokerHandsType(white,black,null);
         //then
         assertEquals("THREE_OF_A_KIND", pokersType);
     }
@@ -93,9 +95,9 @@ public class PokerGameTest {
         //given
         String[] white = {"7H", "7D", "5S", "5C", "6D"};
         String[] black = {"8H", "8D", "6S", "9C", "5D"};
-        PokerGame pokerGame = new PokerGame();
+        PokerGame pokerGame = new PokerGame(new InputMessage(),new PokerHands());
         //when
-        String pokersType = pokerGame.judgePokerHandsType(white,black);
+       String pokersType = pokerGame.judgePokerHandsType(white,black,null);
         //then
         assertEquals("TWO_PAIRS", pokersType);
     }
@@ -104,9 +106,9 @@ public class PokerGameTest {
         //given
         String[] white = {"8H", "8D", "6S", "9C", "5D"};
         String[] black = {"8H", "2D", "6H", "KC", "5S"};
-        PokerGame pokerGame = new PokerGame();
+        PokerGame pokerGame = new PokerGame(new InputMessage(),new PokerHands());
         //when
-        String pokersType = pokerGame.judgePokerHandsType(white,black);
+       String pokersType = pokerGame.judgePokerHandsType(white,black,null);
         //then
         assertEquals("PAIRS", pokersType);
     }
@@ -115,9 +117,9 @@ public class PokerGameTest {
         //given
         String[] white = {"8H", "2D", "6H", "KC", "5S"};
         String[] black = {"2H", "4D", "5H", "7C", "8S"};
-        PokerGame pokerGame = new PokerGame();
+        PokerGame pokerGame = new PokerGame(new InputMessage(),new PokerHands());
         //when
-        String pokersType = pokerGame.judgePokerHandsType(white,black);
+       String pokersType = pokerGame.judgePokerHandsType(white,black,null);
         //then
         assertEquals("HIGH_CARD", pokersType);
     }

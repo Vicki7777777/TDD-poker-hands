@@ -20,9 +20,13 @@ public class PokerGame {
 
     String cards = "0123456789TJQKA";
 
-    InputMessage inputMessage = new InputMessage();
-    PokerHands pokerHands = new PokerHands();
-    String gameResult = null;
+    InputMessage inputMessage;
+    PokerHands pokerHands;
+
+    public PokerGame(InputMessage inputMessage, PokerHands pokerHands) {
+        this.inputMessage = inputMessage;
+        this.pokerHands = pokerHands;
+    }
 
     public void start() {
         Scanner sc = new Scanner(System.in);
@@ -33,66 +37,54 @@ public class PokerGame {
         String white = sc.nextLine();
         String[] blackArray = inputMessage.handleInput(black);
         String[] whiteArray = inputMessage.handleInput(white);
-        String checkResultMessage = inputMessage.checkInput(blackArray,whiteArray);
-        if (checkResultMessage == null){
-            handlePokerHands(blackArray,whiteArray);
-            System.out.println(gameResult);
-        }else {
+        String checkResultMessage = inputMessage.checkInput(blackArray, whiteArray);
+        if (checkResultMessage == null) {
+            String pokerHansType = judgePokerHandsType(blackArray, whiteArray,null);
+            handlePokerHands(blackArray, whiteArray, pokerHansType);
+        } else {
             System.out.println(checkResultMessage);
         }
     }
 
-    private void handlePokerHands(String[] blackArray, String[] whiteArray) {
-        String pokerHandsType = judgePokerHandsType(blackArray,whiteArray);
-        switch (pokerHandsType){
+    private void handlePokerHands(String[] blackArray, String[] whiteArray, String pokerHandsType) {
+        String gameResult = null;
+        switch (pokerHandsType) {
             case STRAIGHT_FLUSH:
-                gameResult = pokerHands.handleStraightFlush(blackArray,whiteArray);
+                gameResult = pokerHands.handleStraightFlush(blackArray, whiteArray);
                 break;
             case FOUR_OF_A_KIND:
-                gameResult = pokerHands.handleFourOfAKind(blackArray,whiteArray);
+                gameResult = pokerHands.handleFourOfAKind(blackArray, whiteArray);
                 break;
             case FULL_HOUSE:
-                gameResult = pokerHands.handleFullHouse(blackArray,whiteArray);
+                gameResult = pokerHands.handleFullHouse(blackArray, whiteArray);
                 break;
             case FLUSH:
-                gameResult = pokerHands.handleFlush(blackArray,whiteArray);
-                break;
-            case FLUSH_ELSE:
-                gameResult = handleFlushElse(blackArray,whiteArray);
+                gameResult = pokerHands.handleFlush(blackArray, whiteArray);
                 break;
             case STRAIGHT:
-                gameResult = pokerHands.handleStraight(blackArray,whiteArray);
+                gameResult = pokerHands.handleStraight(blackArray, whiteArray);
                 break;
             case THREE_OF_A_KIND:
-                gameResult = pokerHands.handleThreeOfAKind(blackArray,whiteArray);
+                gameResult = pokerHands.handleThreeOfAKind(blackArray, whiteArray);
                 break;
             case TWO_PAIRS:
-                gameResult = pokerHands.handleTwoPair(blackArray,whiteArray);
+                gameResult = pokerHands.handleTwoPair(blackArray, whiteArray);
                 break;
             case PAIRS:
-                gameResult = pokerHands.handlePair(blackArray,whiteArray);
+                gameResult = pokerHands.handlePair(blackArray, whiteArray);
                 break;
             case HIGH_CARD:
-                gameResult = pokerHands.handleHighCard(blackArray,whiteArray);
+                gameResult = pokerHands.handleHighCard(blackArray, whiteArray);
                 break;
+        }
+        if (pokerHandsType.equals(FLUSH) && gameResult.equals("Tie")) {
+            pokerHandsType = judgePokerHandsType(blackArray, whiteArray,pokerHandsType);
+            handlePokerHands(blackArray,whiteArray,pokerHandsType);
+        } else {
+            System.out.println(gameResult);
         }
     }
 
-    private String handleFlushElse(String[] blackArray, String[] whiteArray) {
-        if (isStraight(blackArray) || isStraight(whiteArray)) {
-            return pokerHands.handleStraight(blackArray,whiteArray);
-        }
-        if (isThreeOfAKind(blackArray) || isThreeOfAKind(whiteArray)) {
-            return pokerHands.handleThreeOfAKind(blackArray,whiteArray);
-        }
-        if (isTwoPairs(blackArray) || isTwoPairs(whiteArray)) {
-            return pokerHands.handleTwoPair(blackArray,whiteArray);
-        }
-        if (isPairs(blackArray) || isPairs(whiteArray)) {
-            return pokerHands.handlePair(blackArray,whiteArray);
-        }
-        return pokerHands.handleHighCard(blackArray,whiteArray);
-    }
 
     public List<Integer> getFirstNumber(String[] pokers) {
         return Arrays.stream(pokers).map(card -> cards.indexOf(card.charAt(0))).collect(Collectors.toList());
@@ -102,32 +94,29 @@ public class PokerGame {
         return Arrays.stream(pokers).map(card -> String.valueOf(card.charAt(1))).collect(Collectors.toList());
     }
 
-    public String judgePokerHandsType(String[] blackArray, String[] whiteArray) {
-        if (isStraightFlush(blackArray) || isStraightFlush(whiteArray)) {
+    public String judgePokerHandsType(String[] blackArray, String[] whiteArray, String notEqual) {
+        if (!STRAIGHT_FLUSH.equals(notEqual) && (isStraightFlush(blackArray) || isStraightFlush(whiteArray))) {
             return STRAIGHT_FLUSH;
         }
-        if (isFourOfAKind(blackArray) || isFourOfAKind(whiteArray)) {
+        if (!FOUR_OF_A_KIND.equals(notEqual) && (isFourOfAKind(blackArray) || isFourOfAKind(whiteArray))) {
             return FOUR_OF_A_KIND;
         }
-        if (isFullHouse(blackArray) || isFullHouse(whiteArray)) {
+        if (!FULL_HOUSE.equals(notEqual) && (isFullHouse(blackArray) || isFullHouse(whiteArray))) {
             return FULL_HOUSE;
         }
-        if (isFlush(blackArray) || isFlush(whiteArray)) {
-            if(isFlush(blackArray) && isFlush(whiteArray)){
-                return FLUSH_ELSE;
-            }
+        if (!FLUSH.equals(notEqual) && (isFlush(blackArray) || isFlush(whiteArray))) {
             return FLUSH;
         }
-        if (isStraight(blackArray) || isStraight(whiteArray)) {
+        if (!STRAIGHT.equals(notEqual) && (isStraight(blackArray) || isStraight(whiteArray))) {
             return STRAIGHT;
         }
-        if (isThreeOfAKind(blackArray) || isThreeOfAKind(whiteArray)) {
+        if (!THREE_OF_A_KIND.equals(notEqual) && (isThreeOfAKind(blackArray) || isThreeOfAKind(whiteArray))){
             return THREE_OF_A_KIND;
         }
-        if (isTwoPairs(blackArray) || isTwoPairs(whiteArray)) {
+        if (!TWO_PAIRS.equals(notEqual) && (isTwoPairs(blackArray) || isTwoPairs(whiteArray))) {
             return TWO_PAIRS;
         }
-        if (isPairs(blackArray) || isPairs(whiteArray)) {
+        if (!PAIRS.equals(notEqual) && (isPairs(blackArray) || isPairs(whiteArray))) {
             return PAIRS;
         }
         return HIGH_CARD;
