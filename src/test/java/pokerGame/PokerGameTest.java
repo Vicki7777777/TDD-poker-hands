@@ -64,4 +64,16 @@ public class PokerGameTest {
         assertEquals("FLUSH", pokersType);
     }
 
+    @Test
+    public void should_return_STRAIGHT_when_judgePokerHandsType_given_3C4C5H6S7S_3H3D5S9C3D() {
+        //given
+        String[] white = {"3C", "4C", "5H", "6S", "7S"};
+        String[] black = {"3H", "3D", "5S", "6C", "3D"};
+        PokerGame pokerGame = new PokerGame();
+        //when
+        String pokersType = pokerGame.judgePokerHandsType(white,black);
+        //then
+        assertEquals("STRAIGHT", pokersType);
+    }
+
 }
