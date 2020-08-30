@@ -40,4 +40,16 @@ public class PokerGameTest {
         assertEquals("FOUR_OF_A_KIND", pokersType);
     }
 
+    @Test
+    public void should_return_FULL_HOUSE_when_judgePokerHandsType_given_3H3D3C6H6D_4H4H4H8H7H() {
+        //given
+        String[] white = {"3H", "3D", "3C", "6H", "6D"};
+        String[] black = {"4H", "4D", "4C", "8H", "7H"};
+        PokerGame pokerGame = new PokerGame();
+        //when
+        String pokersType = pokerGame.judgePokerHandsType(white,black);
+        //then
+        assertEquals("FULL_HOUSE", pokersType);
+    }
+
 }
