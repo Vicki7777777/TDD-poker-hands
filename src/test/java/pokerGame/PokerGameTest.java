@@ -27,4 +27,17 @@ public class PokerGameTest {
         //then
         assertFalse(result);
     }
+
+    @Test
+    public void should_return_FOUR_OF_A_KIND_when_judgePokerHandsType_given_3H3D3C3S6D_4H4D4C5H5D() {
+        //given
+        String[] white = {"3H", "3D", "3C", "3S", "6D"};
+        String[] black = {"4H", "4D", "4C", "5H", "5D"};
+        PokerGame pokerGame = new PokerGame();
+        //when
+        String pokersType = pokerGame.judgePokerHandsType(white,black);
+        //then
+        assertEquals("FOUR_OF_A_KIND", pokersType);
+    }
+
 }
