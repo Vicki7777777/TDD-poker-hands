@@ -57,11 +57,11 @@ public class PokerHands {
         return Arrays.stream(pokers).map(card -> String.valueOf(card.charAt(1))).collect(Collectors.toList());
     }
 
-    public Integer getPairsNumber(List<Integer> firsts) {
-        int[] buget = new int[15];
-        for (int value : firsts) {
-            buget[value]++;
-            if (buget[value] == 2) {
+    public Integer getPairsNumber(List<Integer> pokers) {
+        int[] buckets = new int[15];
+        for (int value : pokers) {
+            buckets[value]++;
+            if (buckets[value] == 2) {
                 return value;
             }
         }
