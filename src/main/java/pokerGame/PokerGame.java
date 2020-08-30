@@ -30,7 +30,7 @@ public class PokerGame {
         return null;
     }
 
-    private boolean isStraightFlush(String[] pokers) {
+    public boolean isStraightFlush(String[] pokers) {
         List<Integer> blackFirsts = getFirstNumber(pokers);
         List<String> whiteSuits= getSuits(pokers);
         blackFirsts.sort(Comparator.reverseOrder());

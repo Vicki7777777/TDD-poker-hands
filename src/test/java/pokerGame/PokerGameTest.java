@@ -2,7 +2,7 @@ package pokerGame;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PokerGameTest {
     @Test
@@ -15,5 +15,16 @@ public class PokerGameTest {
         String pokersType = pokerGame.judgePokerHandsType(white,black);
         //then
         assertEquals("STRAIGHT_FLUSH", pokersType);
+    }
+
+    @Test
+    public void should_return_false_when_isStraightFlush_given_4C5C6C7C8S() {
+        //given
+        String[] pokers = {"4C", "5C", "6C", "7C", "8S"};
+        PokerGame pokerGame = new PokerGame();
+        //when
+        boolean result = pokerGame.isStraightFlush(pokers);
+        //then
+        assertFalse(result);
     }
 }
