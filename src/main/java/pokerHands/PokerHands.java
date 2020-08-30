@@ -16,18 +16,16 @@ public class PokerHands {
     }};
 
     public String handleHighCard(String[] black, String[] white) {
-        List<Integer> blackFirsts = getCardNumbers(black);
-        List<Integer> whiteFirsts = getCardNumbers(white);
-        Integer blackMax = blackFirsts.stream().max(Integer::compare).orElse(-1);
-        Integer whiteMax = whiteFirsts.stream().max(Integer::compare).orElse(-1);
-        String winner = "Black";
-        int max = blackMax;
-        if (blackMax < whiteMax) {
-            winner = "White";
-            max = whiteMax;
-        } else if (blackMax.equals(whiteMax)) {
+        List<Integer> blackPokerNumbers = getCardNumbers(black);
+        List<Integer> whitePorkerNumbers = getCardNumbers(white);
+        Integer blackMax = blackPokerNumbers.stream().max(Integer::compare).orElse(-1);
+        Integer whiteMax = whitePorkerNumbers.stream().max(Integer::compare).orElse(-1);
+        if (blackMax.equals(whiteMax)) {
             return "Tie";
         }
+        String winner = blackMax > whiteMax ? "Black" : "White";
+        int max = blackMax > whiteMax ? blackMax : whiteMax;
+
         String cardName = Integer.toString(max);
         if (max > 10) {
             cardName = cardNames[max];
