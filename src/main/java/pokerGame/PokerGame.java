@@ -38,8 +38,16 @@ public class PokerGame {
 
     private boolean isThreeOfAKind(String[] pokers) {
         List<Integer> firstNumbers = getFirstNumber(pokers);
-        Set<Integer> firstNumbersSet = new HashSet<>(firstNumbers);
-        return firstNumbersSet.size() < 4;
+        int[] buckets = new int[cards.length()];
+        for(Integer value : firstNumbers){
+            buckets[value]++;
+        }
+        for(int i = 0;i<buckets.length-1;i++){
+            if(buckets[i] == 3){
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isStraight(String[] pokers) {
