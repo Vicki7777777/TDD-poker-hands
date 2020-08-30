@@ -21,13 +21,39 @@ public class PokerGame {
         if(isFourOfAKind(blackArray) || isFourOfAKind(whiteArray)){
             return "FOUR_OF_A_KIND";
         }
+        if(isFullHouse(blackArray) || isFullHouse(whiteArray)){
+            return "FULL_HOUSE";
+        }
+        if(isFlush(blackArray) || isFlush(whiteArray)){
+            return "FLUSH";
+        }
         return null;
+    }
+
+    public boolean isFlush(String[] pokers) {
+        List<String> suits= getSuits(pokers);
+        Set<String> suitsSet = new HashSet<>(suits);
+        return suitsSet.size() == 1;
+    }
+
+    public boolean isFullHouse(String[] pokers) {
+        List<Integer> firstNumbers = getFirstNumber(pokers);
+        Set<Integer> firstNumbersSet = new HashSet<>(firstNumbers);
+        return firstNumbersSet.size() == 2;
     }
 
     public boolean isFourOfAKind(String[] pokers) {
         List<Integer> firstNumbers = getFirstNumber(pokers);
-        Set<Integer> blackAndWhiteSet = new HashSet<>(firstNumbers);
-        return blackAndWhiteSet.size() == 2;
+        int[] buckets = new int[cards.length()];
+        for(Integer value : firstNumbers){
+            buckets[value]++;
+        }
+        for(int i = 0;i<buckets.length-1;i++){
+            if(buckets[i] == 4){
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isStraightFlush(String[] pokers) {
