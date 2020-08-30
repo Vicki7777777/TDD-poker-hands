@@ -21,7 +21,16 @@ public class PokerGame {
         if(isFourOfAKind(blackArray) || isFourOfAKind(whiteArray)){
             return "FOUR_OF_A_KIND";
         }
+        if(isFullHouse(blackArray) || isFullHouse(whiteArray)){
+            return "FULL_HOUSE";
+        }
         return null;
+    }
+
+    public boolean isFullHouse(String[] pokers) {
+        List<Integer> firstNumbers = getFirstNumber(pokers);
+        Set<Integer> blackAndWhiteSet = new HashSet<>(firstNumbers);
+        return blackAndWhiteSet.size() == 2;
     }
 
     public boolean isFourOfAKind(String[] pokers) {
