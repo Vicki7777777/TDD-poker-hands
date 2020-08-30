@@ -17,6 +17,9 @@ public class InputMessage {
 
     public String checkInput(String[] black, String[] white) {
         String[] blackAndWhite = Arrays.copyOf(black,black.length+white.length);
+        if(blackAndWhite.length<10){
+            return "Should give fives pokers!";
+        }
         System.arraycopy(blackAndWhite,black.length-1,white,0,white.length);
         Set<String> blackAndWhiteSet = new HashSet<>(Arrays.asList(blackAndWhite));
         if(blackAndWhiteSet.size()<10){
