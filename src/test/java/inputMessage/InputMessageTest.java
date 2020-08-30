@@ -36,4 +36,16 @@ public class InputMessageTest {
         //then
         assertEquals("Can't input repeat poker!", result);
     }
+
+    @Test
+    public void should_return_wrong_message_when_handleInputCheck_given_2H3D5S9C_and_2H3H4S8CAH() {
+        //given
+        String[] black = {"2H", "3D", "5S", "9C"};
+        String[] white = {"2H", "3H", "4S", "8C", "AH"};
+        InputMessage inputMessage = new InputMessage();
+        //when
+        String result = inputMessage.checkInput(black,white);
+        //then
+        assertEquals("Should give fives pokers!", result);
+    }
 }
