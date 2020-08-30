@@ -146,26 +146,30 @@ public class PokerHands {
     }
 
     public String handleStraight(String[] black, String[] white) {
-        List<Integer> whiteFirsts = getCardNumbers(white);
-        List<Integer> blackFirsts = getCardNumbers(black);
-        Integer whiteStraightNumbers = getStraight(whiteFirsts);
-        Integer blackStraightNumbers = getStraight(blackFirsts);
-        String winner = "White";
+        List<Integer> whitePokerNumbers = getCardNumbers(white);
+        List<Integer> blackPokerNumbers = getCardNumbers(black);
+        Integer whiteStraightNumbers = getStraight(whitePokerNumbers);
+        Integer blackStraightNumbers = getStraight(blackPokerNumbers);
+        String winner = null;
+        Integer cardNumber = null;
         if (whiteStraightNumbers == null) {
             winner = "Black";
-            return String.format("%s wins. - Straight:max is %s", winner, cardNames[blackStraightNumbers]);
+            cardNumber = blackStraightNumbers;
+        } else if (blackStraightNumbers == null) {
+            winner = "White";
+            cardNumber = whiteStraightNumbers;
+        } else {
+            if (blackStraightNumbers > whiteStraightNumbers) {
+                winner = "Black";
+                cardNumber = blackStraightNumbers;
+            } else if (blackStraightNumbers < whiteStraightNumbers) {
+                winner = "White";
+                cardNumber = whiteStraightNumbers;
+            } else {
+                return "Tie";
+            }
         }
-        if (blackStraightNumbers == null) {
-            return String.format("%s wins. - Straight:max is %s", winner, cardNames[whiteStraightNumbers]);
-        }
-        if (blackStraightNumbers > whiteStraightNumbers) {
-            winner = "Black";
-            return String.format("%s wins. - Straight:max is %s", winner, cardNames[blackStraightNumbers]);
-        }
-        if (blackStraightNumbers < whiteStraightNumbers) {
-            return String.format("%s wins. - Straight:max is %s", winner, cardNames[whiteStraightNumbers]);
-        }
-        return "Tie";
+        return String.format("%s wins. - Straight:max is %s", winner, cardNames[cardNumber]);
     }
 
     private Integer getStraight(List<Integer> pokers) {
