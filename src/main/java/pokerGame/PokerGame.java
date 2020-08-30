@@ -21,6 +21,7 @@ public class PokerGame {
 
     InputMessage inputMessage = new InputMessage();
     PokerHands pokerHands = new PokerHands();
+    String gameResult = null;
 
     public void start() {
         Scanner sc = new Scanner(System.in);
@@ -43,31 +44,31 @@ public class PokerGame {
         String pokerHandsType = judgePokerHandsType(blackArray,whiteArray);
         switch (pokerHandsType){
             case STRAIGHT_FLUSH:
-                System.out.println(pokerHands.handleStraightFlush(blackArray,whiteArray));
+                gameResult = pokerHands.handleStraightFlush(blackArray,whiteArray);
                 break;
             case FOUR_OF_A_KIND:
-                System.out.println(pokerHands.handleFourOfAKind(blackArray,whiteArray));
+                gameResult = pokerHands.handleFourOfAKind(blackArray,whiteArray);
                 break;
             case FULL_HOUSE:
-                System.out.println(pokerHands.handleFullHouse(blackArray,whiteArray));
+                gameResult = pokerHands.handleFullHouse(blackArray,whiteArray);
                 break;
             case FLUSH:
-                System.out.println(pokerHands.handleFlush(blackArray,whiteArray));
+                gameResult = pokerHands.handleFlush(blackArray,whiteArray);
                 break;
             case STRAIGHT:
-                System.out.println(pokerHands.handleStraight(blackArray,whiteArray));
+                gameResult = pokerHands.handleStraight(blackArray,whiteArray);
                 break;
             case THREE_OF_A_KIND:
-                System.out.println(pokerHands.handleThreeOfAKind(blackArray,whiteArray));
+                gameResult = pokerHands.handleThreeOfAKind(blackArray,whiteArray);
                 break;
             case TWO_PAIRS:
-                System.out.println(pokerHands.handleTwoPair(blackArray,whiteArray));
+                gameResult = pokerHands.handleTwoPair(blackArray,whiteArray);
                 break;
             case PAIRS:
-                System.out.println(pokerHands.handlePair(blackArray,whiteArray));
+                gameResult = pokerHands.handlePair(blackArray,whiteArray);
                 break;
             case HIGH_CARD:
-                System.out.println(pokerHands.handleHighCard(blackArray,whiteArray));
+                gameResult = pokerHands.handleHighCard(blackArray,whiteArray);
                 break;
         }
     }
