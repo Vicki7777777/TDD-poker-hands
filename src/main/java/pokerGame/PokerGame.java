@@ -26,8 +26,16 @@ public class PokerGame {
 
     public boolean isFourOfAKind(String[] pokers) {
         List<Integer> firstNumbers = getFirstNumber(pokers);
-        Set<Integer> blackAndWhiteSet = new HashSet<>(firstNumbers);
-        return blackAndWhiteSet.size() == 2;
+        int[] buckets = new int[cards.length()];
+        for(Integer value : firstNumbers){
+            buckets[value]++;
+        }
+        for(int i = 0;i<buckets.length-1;i++){
+            if(buckets[i] == 4){
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isStraightFlush(String[] pokers) {
