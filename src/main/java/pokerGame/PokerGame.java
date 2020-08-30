@@ -5,15 +5,6 @@ import java.util.stream.Collectors;
 
 public class PokerGame {
     String cards = "0123456789TJQKA";
-    String[] cardNames = {
-            "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"
-    };
-    Map<String, String> cardSuit = new HashMap<String, String>() {{
-        put("H", "Hearts");
-        put("C", "Clubs");
-        put("D", "Diamonds");
-        put("S", "Spades");
-    }};
 
     public List<Integer> getFirstNumber(String[] pokers) {
         return Arrays.stream(pokers).map(card -> cards.indexOf(card.charAt(0))).collect(Collectors.toList());
@@ -27,20 +18,29 @@ public class PokerGame {
         if (isStraightFlush(blackArray) || isStraightFlush(whiteArray)) {
             return "STRAIGHT_FLUSH";
         }
+        if(isFourOfAKind(blackArray) || isFourOfAKind(whiteArray)){
+            return "FOUR_OF_A_KIND";
+        }
         return null;
     }
 
+    public boolean isFourOfAKind(String[] pokers) {
+        List<Integer> firstNumbers = getFirstNumber(pokers);
+        Set<Integer> blackAndWhiteSet = new HashSet<>(firstNumbers);
+        return blackAndWhiteSet.size() == 2;
+    }
+
     public boolean isStraightFlush(String[] pokers) {
-        List<Integer> blackFirsts = getFirstNumber(pokers);
-        List<String> whiteSuits= getSuits(pokers);
-        blackFirsts.sort(Comparator.reverseOrder());
-        for(int i = 0;i< blackFirsts.size()-1;i++){
-            if(blackFirsts.get(i+1) != blackFirsts.get(i)-1){
+        List<Integer> firstNumbers = getFirstNumber(pokers);
+        List<String> suits= getSuits(pokers);
+        firstNumbers.sort(Comparator.reverseOrder());
+        for(int i = 0;i< firstNumbers.size()-1;i++){
+            if(firstNumbers.get(i+1) != firstNumbers.get(i)-1){
                 return false;
             }
         }
-        for(int i = 0;i< whiteSuits.size()-1;i++){
-            if(!whiteSuits.get(i).equals(whiteSuits.get(i + 1))){
+        for(int i = 0;i< suits.size()-1;i++){
+            if(!suits.get(i).equals(suits.get(i + 1))){
                 return false;
             }
         }
