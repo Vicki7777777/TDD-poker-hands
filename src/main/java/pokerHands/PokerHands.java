@@ -1,7 +1,5 @@
 package pokerHands;
 
-import com.sun.javafx.image.IntPixelGetter;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -194,10 +192,10 @@ public class PokerHands {
         if (whiteFlushSuites == null) {
             winner = "Black";
             suite = blackFlushSuites;
-        }else if (blackFlushSuites == null) {
+        } else if (blackFlushSuites == null) {
             winner = "White";
             suite = whiteFlushSuites;
-        }else {
+        } else {
             return "Tie";
         }
         return String.format("%s wins. - Flush:Suit is %s", winner, cardSuit.get(suite));
@@ -222,23 +220,23 @@ public class PokerHands {
         if (whiteFullHouse == null) {
             winner = "Black";
             fullHouse = blackFullHouse;
-        }else if (blackFullHouse == null) {
+        } else if (blackFullHouse == null) {
             winner = "White";
             fullHouse = whiteFullHouse;
-        }else {
+        } else {
             if (blackFullHouse.get("kind") > whiteFullHouse.get("kind")) {
                 winner = "Black";
                 fullHouse = blackFullHouse;
-            }else if (blackFullHouse.get("kind") < whiteFullHouse.get("kind")) {
+            } else if (blackFullHouse.get("kind") < whiteFullHouse.get("kind")) {
                 winner = "White";
                 fullHouse = whiteFullHouse;
-            }else if (blackFullHouse.get("kind").equals(whiteFullHouse.get("kind")) && blackFullHouse.get("pair") > whiteFullHouse.get("pair")) {
+            } else if (blackFullHouse.get("kind").equals(whiteFullHouse.get("kind")) && blackFullHouse.get("pair") > whiteFullHouse.get("pair")) {
                 winner = "Black";
                 fullHouse = blackFullHouse;
-            }else if (blackFullHouse.get("kind").equals(whiteFullHouse.get("kind")) && blackFullHouse.get("pair") < whiteFullHouse.get("pair")) {
+            } else if (blackFullHouse.get("kind").equals(whiteFullHouse.get("kind")) && blackFullHouse.get("pair") < whiteFullHouse.get("pair")) {
                 winner = "White";
                 fullHouse = whiteFullHouse;
-            }else {
+            } else {
                 return "Tie";
             }
         }
@@ -277,23 +275,23 @@ public class PokerHands {
         if (whiteFourOfAKindNumbers.get("kind") == null) {
             winner = "Black";
             fourOfAKindNumbers = blackFourOfAKindNumbers;
-        }else if (blackFourOfAKindNumbers.get("kind") == null) {
+        } else if (blackFourOfAKindNumbers.get("kind") == null) {
             winner = "White";
             fourOfAKindNumbers = whiteFourOfAKindNumbers;
-        }else if (blackFourOfAKindNumbers.get("kind") > whiteFourOfAKindNumbers.get("kind")) {
+        } else if (blackFourOfAKindNumbers.get("kind") > whiteFourOfAKindNumbers.get("kind")) {
             winner = "Black";
             fourOfAKindNumbers = blackFourOfAKindNumbers;
-        }else {
+        } else {
             if (blackFourOfAKindNumbers.get("kind") < whiteFourOfAKindNumbers.get("kind")) {
                 winner = "White";
                 fourOfAKindNumbers = whiteFourOfAKindNumbers;
-            }else if (blackFourOfAKindNumbers.get("kind").equals(whiteFourOfAKindNumbers.get("kind")) && blackFourOfAKindNumbers.get("single") > whiteFourOfAKindNumbers.get("single")) {
+            } else if (blackFourOfAKindNumbers.get("kind").equals(whiteFourOfAKindNumbers.get("kind")) && blackFourOfAKindNumbers.get("single") > whiteFourOfAKindNumbers.get("single")) {
                 winner = "Black";
                 fourOfAKindNumbers = blackFourOfAKindNumbers;
-            }else if (blackFourOfAKindNumbers.get("kind").equals(whiteFourOfAKindNumbers.get("kind")) && blackFourOfAKindNumbers.get("single") < whiteFourOfAKindNumbers.get("single")) {
+            } else if (blackFourOfAKindNumbers.get("kind").equals(whiteFourOfAKindNumbers.get("kind")) && blackFourOfAKindNumbers.get("single") < whiteFourOfAKindNumbers.get("single")) {
                 winner = "White";
                 fourOfAKindNumbers = whiteFourOfAKindNumbers;
-            }else {
+            } else {
                 return "Tie";
             }
         }
@@ -322,25 +320,26 @@ public class PokerHands {
         List<Integer> blackFirsts = getCardNumbers(black);
         List<String> whiteSuits = getSuits(white);
         List<String> blackSuits = getSuits(black);
-        String winner = "White";
         Integer whiteStraightNumbers = getStraight(whiteFirsts);
         Integer blackStraightNumbers = getStraight(blackFirsts);
         String whiteFlushSuites = getFlush(whiteSuits);
         String blackFlushSuites = getFlush(blackSuits);
+        String winner = null;
         if (whiteStraightNumbers == null || whiteFlushSuites == null) {
             winner = "Black";
-            return String.format("%s wins. - Straight Flush", winner);
+        } else if (blackStraightNumbers == null || blackFlushSuites == null) {
+            winner = "White";
+        } else {
+            if (blackStraightNumbers < whiteStraightNumbers) {
+                winner = "White";
+            } else if (blackStraightNumbers > whiteStraightNumbers) {
+                winner = "Black";
+            } else {
+                return "Tie";
+
+            }
         }
-        if (blackStraightNumbers == null || blackFlushSuites == null) {
-            return String.format("%s wins. - Straight Flush", winner);
-        }
-        if (blackStraightNumbers > whiteStraightNumbers) {
-            winner = "Black";
-            return String.format("%s wins. - Straight Flush", winner);
-        }
-        if (blackStraightNumbers < whiteStraightNumbers) {
-            return String.format("%s wins. - Straight Flush", winner);
-        }
-        return "Tie";
+        return String.format("%s wins. - Straight Flush", winner);
+
     }
 }
