@@ -1,7 +1,10 @@
 package inputMessage;
 
-public class InputMessage {
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
+public class InputMessage {
     public String[] handleInput(String input) {
         String[] inputArray = new String[5];
         inputArray[0] = input.substring(0,2);
@@ -13,6 +16,14 @@ public class InputMessage {
     }
 
     public String checkInput(String[] black, String[] white) {
+        String[] blackAndWhite = Arrays.copyOf(black,black.length+white.length);
+        System.arraycopy(blackAndWhite,black.length-1,white,0,white.length);
+        Set<String> blackAndWhiteSet = new HashSet<>(Arrays.asList(blackAndWhite));
+        if(blackAndWhiteSet.size()<10){
+            return "Can't input repeat poker!";
+        }
         return null;
     }
+
+
 }
