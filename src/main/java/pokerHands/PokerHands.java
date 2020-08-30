@@ -15,8 +15,8 @@ public class PokerHands {
         put("S","Spades");
     }};
     public String handleHighCard(String[] black, String[] white) {
-        List<Integer> blackFirsts = getFirstNumber(black);
-        List<Integer> whiteFirsts = getFirstNumber(white);
+        List<Integer> blackFirsts = getCardNumbers(black);
+        List<Integer> whiteFirsts = getCardNumbers(white);
         Integer blackMax = blackFirsts.stream().max(Integer::compare).orElse(-1);
         Integer whiteMax = whiteFirsts.stream().max(Integer::compare).orElse(-1);
         String winner = "Black";
@@ -35,8 +35,8 @@ public class PokerHands {
     }
 
     public String handlePair(String[] black, String[] white) {
-        List<Integer> blackFirsts = getFirstNumber(black);
-        List<Integer> whiteFirsts = getFirstNumber(white);
+        List<Integer> blackFirsts = getCardNumbers(black);
+        List<Integer> whiteFirsts = getCardNumbers(white);
         String winner = "White";
         int whitePair = getPairsNumber(whiteFirsts);
         int blackPair = getPairsNumber(blackFirsts);
@@ -50,7 +50,7 @@ public class PokerHands {
         return String.format("%s wins. - Pair of %ss", winner, cardName);
     }
 
-    public List<Integer> getFirstNumber(String[] pokers) {
+    public List<Integer> getCardNumbers(String[] pokers) {
         return Arrays.stream(pokers).map(card -> cards.indexOf(card.charAt(0))).collect(Collectors.toList());
     }
     public List<String> getSuits(String[] pokers) {
@@ -82,8 +82,8 @@ public class PokerHands {
     }
 
     public String handleTwoPair(String[] black, String[] white) {
-        List<Integer> whiteFirsts = getFirstNumber(white);
-        List<Integer> blackFirsts = getFirstNumber(black);
+        List<Integer> whiteFirsts = getCardNumbers(white);
+        List<Integer> blackFirsts = getCardNumbers(black);
         String winner = "White";
         List<Integer> whitePairNumbers = getPairNumbers(whiteFirsts);
         List<Integer> blackPairNumbers = getPairNumbers(blackFirsts);
@@ -111,8 +111,8 @@ public class PokerHands {
         return threeOfPairNumbers;
     }
     public String handleThreeOfAKind(String[] black, String[] white) {
-        List<Integer> whiteFirsts = getFirstNumber(white);
-        List<Integer> blackFirsts = getFirstNumber(black);
+        List<Integer> whiteFirsts = getCardNumbers(white);
+        List<Integer> blackFirsts = getCardNumbers(black);
         String winner = "White";
         Integer whiteThreeOfPairNumbers = getThreeOfPairNumbers(whiteFirsts);
         Integer blackThreeOfPairNumbers = getThreeOfPairNumbers(blackFirsts);
@@ -135,8 +135,8 @@ public class PokerHands {
     }
 
     public String handleStraight(String[] black, String[] white) {
-        List<Integer> whiteFirsts = getFirstNumber(white);
-        List<Integer> blackFirsts = getFirstNumber(black);
+        List<Integer> whiteFirsts = getCardNumbers(white);
+        List<Integer> blackFirsts = getCardNumbers(black);
         String winner = "White";
         Integer whiteStraightNumbers = getStraight(whiteFirsts);
         Integer blackStraightNumbers = getStraight(blackFirsts);
@@ -193,8 +193,8 @@ public class PokerHands {
     }
 
     public String handleFullHouse(String[] black, String[] white) {
-        List<Integer> whiteFirsts = getFirstNumber(white);
-        List<Integer> blackFirsts = getFirstNumber(black);
+        List<Integer> whiteFirsts = getCardNumbers(white);
+        List<Integer> blackFirsts = getCardNumbers(black);
         String winner = "White";
         Map<String,Integer> whiteFullHouse = getFullHouse(whiteFirsts);
         Map<String,Integer> blackFullHouse = getFullHouse(blackFirsts);
@@ -245,8 +245,8 @@ public class PokerHands {
     }
 
     public String handleFourOfAKind(String[] black, String[] white) {
-        List<Integer> whiteFirsts = getFirstNumber(white);
-        List<Integer> blackFirsts = getFirstNumber(black);
+        List<Integer> whiteFirsts = getCardNumbers(white);
+        List<Integer> blackFirsts = getCardNumbers(black);
         String winner = "White";
         Map<String,Integer> whiteFourOfAKindNumbers = getFourOfAKindNumbers(whiteFirsts);
         Map<String,Integer> blackFourOfAKindNumbers = getFourOfAKindNumbers(blackFirsts);
@@ -292,8 +292,8 @@ public class PokerHands {
     }
 
     public String handleStraightFlush(String[] black, String[] white) {
-        List<Integer> whiteFirsts = getFirstNumber(white);
-        List<Integer> blackFirsts = getFirstNumber(black);
+        List<Integer> whiteFirsts = getCardNumbers(white);
+        List<Integer> blackFirsts = getCardNumbers(black);
         List<String> whiteSuits= getSuits(white);
         List<String> blackSuits = getSuits(black);
         String winner = "White";
