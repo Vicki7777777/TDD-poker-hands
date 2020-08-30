@@ -52,4 +52,16 @@ public class PokerGameTest {
         assertEquals("FULL_HOUSE", pokersType);
     }
 
+    @Test
+    public void should_return_FLUSH_when_judgePokerHandsType_given_3H2H9H6H7H_3C4C5H6S7S() {
+        //given
+        String[] white = {"3H", "2H", "9H", "6H", "7H"};
+        String[] black = {"3C", "4C", "5H", "6S", "7S"};
+        PokerGame pokerGame = new PokerGame();
+        //when
+        String pokersType = pokerGame.judgePokerHandsType(white,black);
+        //then
+        assertEquals("FLUSH", pokersType);
+    }
+
 }
