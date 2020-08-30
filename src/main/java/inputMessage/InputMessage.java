@@ -23,7 +23,6 @@ public class InputMessage {
         for (int i = 0;i<white.length-1;i++){
             blackAndWhite[i+black.length] = white[i];
         }
-        System.arraycopy(blackAndWhite,black.length-1,white,0,white.length);
         Set<String> blackAndWhiteSet = new HashSet<>(Arrays.asList(blackAndWhite));
         if(blackAndWhiteSet.size()<10){
             return "Can't input repeat poker!";
