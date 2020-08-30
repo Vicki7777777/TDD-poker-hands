@@ -135,10 +135,7 @@ public class PokerGame {
                 competeTimes++;
             }
         }
-        if (competeTimes == 2) {
-            return true;
-        }
-        return false;
+        return competeTimes == 2;
     }
 
     private boolean isThreeOfAKind(String[] pokers) {

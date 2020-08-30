@@ -278,11 +278,11 @@ public class PokerHands {
         } else if (blackFourOfAKindNumbers.get("kind") == null) {
             winner = "White";
             fourOfAKindNumbers = whiteFourOfAKindNumbers;
-        } else if (blackFourOfAKindNumbers.get("kind") > whiteFourOfAKindNumbers.get("kind")) {
-            winner = "Black";
-            fourOfAKindNumbers = blackFourOfAKindNumbers;
         } else {
-            if (blackFourOfAKindNumbers.get("kind") < whiteFourOfAKindNumbers.get("kind")) {
+             if (blackFourOfAKindNumbers.get("kind") > whiteFourOfAKindNumbers.get("kind")) {
+                winner = "Black";
+                fourOfAKindNumbers = blackFourOfAKindNumbers;
+            }else if (blackFourOfAKindNumbers.get("kind") < whiteFourOfAKindNumbers.get("kind")) {
                 winner = "White";
                 fourOfAKindNumbers = whiteFourOfAKindNumbers;
             } else if (blackFourOfAKindNumbers.get("kind").equals(whiteFourOfAKindNumbers.get("kind")) && blackFourOfAKindNumbers.get("single") > whiteFourOfAKindNumbers.get("single")) {
@@ -299,19 +299,20 @@ public class PokerHands {
     }
 
     private Map<String, Integer> getFourOfAKindNumbers(List<Integer> pokers) {
-        int[] buckets = new int[cardNames.length];
         Map<String, Integer> pokersDetail = new HashMap<>();
-        for (Integer value : pokers) {
-            buckets[value]++;
+        Set<Integer> pokerSet = new HashSet<>(pokers);
+        if(pokerSet.size()!=2){
+            return pokersDetail;
         }
-        for (int i = 0; i < buckets.length - 1; i++) {
-            if (buckets[i] == 4) {
-                pokersDetail.put("kind", i);
+
+        pokerSet.forEach(p->{
+            long count = pokers.stream().filter(poker->poker.equals(p)).count();
+            if (count == 4) {
+                pokersDetail.put("kind", p);
+            }else if(count == 1){
+                pokersDetail.put("single", p);
             }
-            if (buckets[i] == 1) {
-                pokersDetail.put("single", i);
-            }
-        }
+        });
         return pokersDetail;
     }
 
