@@ -34,18 +34,16 @@ public class PokerHands {
     }
 
     public String handlePair(String[] black, String[] white) {
-        List<Integer> blackFirsts = getCardNumbers(black);
-        List<Integer> whiteFirsts = getCardNumbers(white);
-        String winner = "White";
-        int whitePair = getPairsNumber(whiteFirsts);
-        int blackPair = getPairsNumber(blackFirsts);
-        String cardName = cardNames[whitePair];
-        if (whitePair < blackPair) {
-            winner = "Black";
-            cardName = cardNames[blackPair];
-        } else if (whitePair == blackPair) {
+        List<Integer> blackPokerNumbers = getCardNumbers(black);
+        List<Integer> whitePorkerNumbers = getCardNumbers(white);
+        Integer whitePair = getPairsNumber(whitePorkerNumbers);
+        Integer blackPair = getPairsNumber(blackPokerNumbers);
+        if (whitePair.equals(blackPair)) {
             return "Tie";
         }
+        String winner = whitePair > blackPair ? "White" : "Black";
+        int pair = whitePair > blackPair ? whitePair : blackPair;
+        String cardName = cardNames[pair];
         return String.format("%s wins. - Pair of %ss", winner, cardName);
     }
 
@@ -82,21 +80,30 @@ public class PokerHands {
     }
 
     public String handleTwoPair(String[] black, String[] white) {
-        List<Integer> whiteFirsts = getCardNumbers(white);
-        List<Integer> blackFirsts = getCardNumbers(black);
-        String winner = "White";
-        List<Integer> whitePairNumbers = getPairNumbers(whiteFirsts);
-        List<Integer> blackPairNumbers = getPairNumbers(blackFirsts);
-        if (whitePairNumbers.size() != 0 && blackPairNumbers.size() != 0 && whitePairNumbers.get(0) < blackPairNumbers.get(0)) {
+        List<Integer> whitePokerNumbers = getCardNumbers(white);
+        List<Integer> blackPokerNumbers = getCardNumbers(black);
+        List<Integer> whitePairNumbers = getPairNumbers(whitePokerNumbers);
+        List<Integer> blackPairNumbers = getPairNumbers(blackPokerNumbers);
+        String winner = null;
+        List<Integer> cardNumbers = null;
+        if(blackPairNumbers.size()!=2){
+            winner = "White";
+            cardNumbers = whitePairNumbers;
+        }else if (whitePairNumbers.size()!=2){
             winner = "Black";
-            return String.format("%s wins. - Two Pair of %ss and %ss", winner, cardNames[blackPairNumbers.get(1)], cardNames[blackPairNumbers.get(0)]);
-        } else if (whitePairNumbers.size() != 0 && blackPairNumbers.size() != 0 && whitePairNumbers.get(0).equals(blackPairNumbers.get(0))) {
-            return "Tie";
-        } else if (blackPairNumbers.size() == 2) {
-            winner = "Black";
-            return String.format("%s wins. - Two Pair of %ss and %ss", winner, cardNames[blackPairNumbers.get(1)], cardNames[blackPairNumbers.get(0)]);
+            cardNumbers = blackPairNumbers;
+        }else{
+            if(whitePairNumbers.get(0)>blackPairNumbers.get(0)){
+                winner = "White";
+                cardNumbers = whitePairNumbers;
+            }else if(whitePairNumbers.get(0)<blackPairNumbers.get(0)){
+                winner = "Black";
+                cardNumbers = blackPairNumbers;
+            }else {
+                return "Tie";
+            }
         }
-        return String.format("%s wins. - Two Pair of %ss and %ss", winner, cardNames[whitePairNumbers.get(1)], cardNames[whitePairNumbers.get(0)]);
+        return String.format("%s wins. - Two Pair of %ss and %ss", winner, cardNames[cardNumbers.get(1)], cardNames[cardNumbers.get(0)]);
     }
 
     private Integer getThreeOfPairNumbers(List<Integer> pokers) {
