@@ -11,6 +11,7 @@ public class PokerGame {
     public static final String FOUR_OF_A_KIND = "FOUR_OF_A_KIND";
     public static final String FULL_HOUSE = "FULL_HOUSE";
     public static final String FLUSH = "FLUSH";
+    public static final String FLUSH_ELSE = "FLUSH_ELSE";
     public static final String STRAIGHT = "STRAIGHT";
     public static final String THREE_OF_A_KIND = "THREE_OF_A_KIND";
     public static final String TWO_PAIRS = "TWO_PAIRS";
@@ -35,6 +36,7 @@ public class PokerGame {
         String checkResultMessage = inputMessage.checkInput(blackArray,whiteArray);
         if (checkResultMessage == null){
             handlePokerHands(blackArray,whiteArray);
+            System.out.println(gameResult);
         }else {
             System.out.println(checkResultMessage);
         }
@@ -55,6 +57,9 @@ public class PokerGame {
             case FLUSH:
                 gameResult = pokerHands.handleFlush(blackArray,whiteArray);
                 break;
+            case FLUSH_ELSE:
+                gameResult = handleFlushElse(blackArray,whiteArray);
+                break;
             case STRAIGHT:
                 gameResult = pokerHands.handleStraight(blackArray,whiteArray);
                 break;
@@ -71,6 +76,22 @@ public class PokerGame {
                 gameResult = pokerHands.handleHighCard(blackArray,whiteArray);
                 break;
         }
+    }
+
+    private String handleFlushElse(String[] blackArray, String[] whiteArray) {
+        if (isStraight(blackArray) || isStraight(whiteArray)) {
+            return pokerHands.handleStraight(blackArray,whiteArray);
+        }
+        if (isThreeOfAKind(blackArray) || isThreeOfAKind(whiteArray)) {
+            return pokerHands.handleThreeOfAKind(blackArray,whiteArray);
+        }
+        if (isTwoPairs(blackArray) || isTwoPairs(whiteArray)) {
+            return pokerHands.handleTwoPair(blackArray,whiteArray);
+        }
+        if (isPairs(blackArray) || isPairs(whiteArray)) {
+            return pokerHands.handlePair(blackArray,whiteArray);
+        }
+        return pokerHands.handleHighCard(blackArray,whiteArray);
     }
 
     public List<Integer> getFirstNumber(String[] pokers) {
@@ -92,6 +113,9 @@ public class PokerGame {
             return FULL_HOUSE;
         }
         if (isFlush(blackArray) || isFlush(whiteArray)) {
+            if(isFlush(blackArray) && isFlush(whiteArray)){
+                return FLUSH_ELSE;
+            }
             return FLUSH;
         }
         if (isStraight(blackArray) || isStraight(whiteArray)) {
