@@ -33,7 +33,24 @@ public class PokerGame {
         if(isThreeOfAKind(blackArray) || isThreeOfAKind(whiteArray)){
             return "THREE_OF_A_KIND";
         }
+        if(isTwoPairs(blackArray) || isTwoPairs(whiteArray)){
+            return "Two_Pairs";
+        }
         return null;
+    }
+
+    private boolean isTwoPairs(String[] pokers) {
+        List<Integer> firstNumbers = getFirstNumber(pokers);
+        int[] buckets = new int[cards.length()];
+        for(Integer value : firstNumbers){
+            buckets[value]++;
+        }
+        for(int i = 0;i<buckets.length-1;i++){
+            if(buckets[i] == 2){
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isThreeOfAKind(String[] pokers) {
