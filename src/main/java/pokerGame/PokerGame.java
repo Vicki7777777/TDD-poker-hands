@@ -39,8 +39,9 @@ public class PokerGame {
         if(isPairs(blackArray) || isPairs(whiteArray)){
             return "PAIRS";
         }
-        return null;
+        return "HIGH_CARD";
     }
+
 
     private boolean isPairs(String[] pokers) {
         List<Integer> firstNumbers = getFirstNumber(pokers);
