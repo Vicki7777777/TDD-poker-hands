@@ -185,17 +185,20 @@ public class PokerHands {
     public String handleFlush(String[] black, String[] white) {
         List<String> whiteSuits = getSuits(white);
         List<String> blackSuits = getSuits(black);
-        String winner = "White";
         String whiteFlushSuites = getFlush(whiteSuits);
         String blackFlushSuites = getFlush(blackSuits);
+        String winner = null;
+        String suite = null;
         if (whiteFlushSuites == null) {
             winner = "Black";
-            return String.format("%s wins. - Flush:Suit is %s", winner, cardSuit.get(blackFlushSuites));
+            suite = blackFlushSuites;
+        }else if (blackFlushSuites == null) {
+            winner = "White";
+            suite = whiteFlushSuites;
+        }else {
+            return "Tie";
         }
-        if (blackFlushSuites == null) {
-            return String.format("%s wins. - Flush:Suit is %s", winner, cardSuit.get(whiteFlushSuites));
-        }
-        return "Tie";
+        return String.format("%s wins. - Flush:Suit is %s", winner, cardSuit.get(suite));
     }
 
     private String getFlush(List<String> suits) {
