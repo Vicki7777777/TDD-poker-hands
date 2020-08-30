@@ -34,7 +34,7 @@ public class PokerGame {
             return "THREE_OF_A_KIND";
         }
         if(isTwoPairs(blackArray) || isTwoPairs(whiteArray)){
-            return "Two_Pairs";
+            return "TWO_PAIRS";
         }
         return null;
     }

@@ -88,4 +88,17 @@ public class PokerGameTest {
         assertEquals("THREE_OF_A_KIND", pokersType);
     }
 
+    @Test
+    public void should_return_TWO_PAIRS_when_judgePokerHandsType_given_7H7D5S5C6D_8H8D6S9C5D() {
+        //given
+        String[] white = {"7H", "7D", "5S", "5C", "6D"};
+        String[] black = {"8H", "8D", "6S", "9C", "5D"};
+        PokerGame pokerGame = new PokerGame();
+        //when
+        String pokersType = pokerGame.judgePokerHandsType(white,black);
+        //then
+        assertEquals("TWO_PAIRS", pokersType);
+    }
+
+
 }
