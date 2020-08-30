@@ -65,15 +65,27 @@ public class PokerGameTest {
     }
 
     @Test
-    public void should_return_STRAIGHT_when_judgePokerHandsType_given_3C4C5H6S7S_3H3D5S9C3D() {
+    public void should_return_STRAIGHT_when_judgePokerHandsType_given_3C4C5H6S7S_3H3D5S9C3S() {
         //given
         String[] white = {"3C", "4C", "5H", "6S", "7S"};
-        String[] black = {"3H", "3D", "5S", "6C", "3D"};
+        String[] black = {"3H", "3D", "5S", "6C", "3S"};
         PokerGame pokerGame = new PokerGame();
         //when
         String pokersType = pokerGame.judgePokerHandsType(white,black);
         //then
         assertEquals("STRAIGHT", pokersType);
+    }
+
+    @Test
+    public void should_return_THREE_OF_A_KIND_when_judgePokerHandsType_given_3H3D5S9C3S_7H7D6S9C5D() {
+        //given
+        String[] white = {"3H", "3D", "5S", "6C", "3S"};
+        String[] black = {"7H", "7D", "6S", "9C", "5D"};
+        PokerGame pokerGame = new PokerGame();
+        //when
+        String pokersType = pokerGame.judgePokerHandsType(white,black);
+        //then
+        assertEquals("THREE_OF_A_KIND", pokersType);
     }
 
 }
