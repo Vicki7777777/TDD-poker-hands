@@ -327,4 +327,17 @@ public class PokerHandsTest {
         //then
         assertEquals("Tie", result);
     }
+
+    @Test
+    public void should_black_win_when_handleStraightFlush_given_3H4H5H6H7H8H_3H4H5H6H7H8H() {
+        //given
+        String[] white = {"3H", "4H", "5H", "6H", "7H"};
+        String[] black = {"3H", "4H", "5H", "6H", "7H"};
+        //when
+        PokerHands pokerHands = new PokerHands();
+        String result = pokerHands.handleStraightFlush(black, white);
+        //then
+        assertEquals("Tie", result);
+    }
+
 }
