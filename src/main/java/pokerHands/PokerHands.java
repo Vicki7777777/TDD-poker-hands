@@ -119,10 +119,10 @@ public class PokerHands {
     }
 
     public String handleThreeOfAKind(String[] black, String[] white) {
-        List<Integer> whiteFirsts = getCardNumbers(white);
-        List<Integer> blackFirsts = getCardNumbers(black);
-        Integer whiteThreeOfPairNumbers = getThreeOfPairNumbers(whiteFirsts);
-        Integer blackThreeOfPairNumbers = getThreeOfPairNumbers(blackFirsts);
+        List<Integer> whitePokerNumbers = getCardNumbers(white);
+        List<Integer> blackPokerNumbers = getCardNumbers(black);
+        Integer whiteThreeOfPairNumbers = getThreeOfPairNumbers(whitePokerNumbers);
+        Integer blackThreeOfPairNumbers = getThreeOfPairNumbers(blackPokerNumbers);
         String winner = null;
         Integer cardNumber = null;
         if (whiteThreeOfPairNumbers == null) {
@@ -148,9 +148,9 @@ public class PokerHands {
     public String handleStraight(String[] black, String[] white) {
         List<Integer> whiteFirsts = getCardNumbers(white);
         List<Integer> blackFirsts = getCardNumbers(black);
-        String winner = "White";
         Integer whiteStraightNumbers = getStraight(whiteFirsts);
         Integer blackStraightNumbers = getStraight(blackFirsts);
+        String winner = "White";
         if (whiteStraightNumbers == null) {
             winner = "Black";
             return String.format("%s wins. - Straight:max is %s", winner, cardNames[blackStraightNumbers]);
