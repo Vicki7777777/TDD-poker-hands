@@ -27,7 +27,21 @@ public class PokerGame {
         if(isFlush(blackArray) || isFlush(whiteArray)){
             return "FLUSH";
         }
+        if(isStraight(blackArray) || isStraight(whiteArray)){
+            return "STRAIGHT";
+        }
         return null;
+    }
+
+    private boolean isStraight(String[] pokers) {
+        List<Integer> firstNumbers = getFirstNumber(pokers);
+        firstNumbers.sort(Comparator.reverseOrder());
+        for(int i = 0;i< firstNumbers.size()-1;i++){
+            if(firstNumbers.get(i+1) != firstNumbers.get(i)-1){
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean isFlush(String[] pokers) {
