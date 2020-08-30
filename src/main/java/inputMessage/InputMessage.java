@@ -11,4 +11,8 @@ public class InputMessage {
         inputArray[4] = input.substring(8,10);
         return inputArray;
     }
+
+    public String checkInput(String[] black, String[] white) {
+        return null;
+    }
 }
