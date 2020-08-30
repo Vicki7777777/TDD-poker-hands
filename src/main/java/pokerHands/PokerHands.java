@@ -119,10 +119,10 @@ public class PokerHands {
     }
 
     public String handleThreeOfAKind(String[] black, String[] white) {
-        List<Integer> whiteFirsts = getCardNumbers(white);
-        List<Integer> blackFirsts = getCardNumbers(black);
-        Integer whiteThreeOfPairNumbers = getThreeOfPairNumbers(whiteFirsts);
-        Integer blackThreeOfPairNumbers = getThreeOfPairNumbers(blackFirsts);
+        List<Integer> whitePokerNumbers = getCardNumbers(white);
+        List<Integer> blackPokerNumbers = getCardNumbers(black);
+        Integer whiteThreeOfPairNumbers = getThreeOfPairNumbers(whitePokerNumbers);
+        Integer blackThreeOfPairNumbers = getThreeOfPairNumbers(blackPokerNumbers);
         String winner = null;
         Integer cardNumber = null;
         if (whiteThreeOfPairNumbers == null) {
@@ -146,26 +146,30 @@ public class PokerHands {
     }
 
     public String handleStraight(String[] black, String[] white) {
-        List<Integer> whiteFirsts = getCardNumbers(white);
-        List<Integer> blackFirsts = getCardNumbers(black);
-        String winner = "White";
-        Integer whiteStraightNumbers = getStraight(whiteFirsts);
-        Integer blackStraightNumbers = getStraight(blackFirsts);
+        List<Integer> whitePokerNumbers = getCardNumbers(white);
+        List<Integer> blackPokerNumbers = getCardNumbers(black);
+        Integer whiteStraightNumbers = getStraight(whitePokerNumbers);
+        Integer blackStraightNumbers = getStraight(blackPokerNumbers);
+        String winner = null;
+        Integer cardNumber = null;
         if (whiteStraightNumbers == null) {
             winner = "Black";
-            return String.format("%s wins. - Straight:max is %s", winner, cardNames[blackStraightNumbers]);
+            cardNumber = blackStraightNumbers;
+        } else if (blackStraightNumbers == null) {
+            winner = "White";
+            cardNumber = whiteStraightNumbers;
+        } else {
+            if (blackStraightNumbers > whiteStraightNumbers) {
+                winner = "Black";
+                cardNumber = blackStraightNumbers;
+            } else if (blackStraightNumbers < whiteStraightNumbers) {
+                winner = "White";
+                cardNumber = whiteStraightNumbers;
+            } else {
+                return "Tie";
+            }
         }
-        if (blackStraightNumbers == null) {
-            return String.format("%s wins. - Straight:max is %s", winner, cardNames[whiteStraightNumbers]);
-        }
-        if (blackStraightNumbers > whiteStraightNumbers) {
-            winner = "Black";
-            return String.format("%s wins. - Straight:max is %s", winner, cardNames[blackStraightNumbers]);
-        }
-        if (blackStraightNumbers < whiteStraightNumbers) {
-            return String.format("%s wins. - Straight:max is %s", winner, cardNames[whiteStraightNumbers]);
-        }
-        return "Tie";
+        return String.format("%s wins. - Straight:max is %s", winner, cardNames[cardNumber]);
     }
 
     private Integer getStraight(List<Integer> pokers) {
@@ -181,17 +185,20 @@ public class PokerHands {
     public String handleFlush(String[] black, String[] white) {
         List<String> whiteSuits = getSuits(white);
         List<String> blackSuits = getSuits(black);
-        String winner = "White";
         String whiteFlushSuites = getFlush(whiteSuits);
         String blackFlushSuites = getFlush(blackSuits);
+        String winner = null;
+        String suite = null;
         if (whiteFlushSuites == null) {
             winner = "Black";
-            return String.format("%s wins. - Flush:Suit is %s", winner, cardSuit.get(blackFlushSuites));
+            suite = blackFlushSuites;
+        } else if (blackFlushSuites == null) {
+            winner = "White";
+            suite = whiteFlushSuites;
+        } else {
+            return "Tie";
         }
-        if (blackFlushSuites == null) {
-            return String.format("%s wins. - Flush:Suit is %s", winner, cardSuit.get(whiteFlushSuites));
-        }
-        return "Tie";
+        return String.format("%s wins. - Flush:Suit is %s", winner, cardSuit.get(suite));
     }
 
     private String getFlush(List<String> suits) {
@@ -204,33 +211,36 @@ public class PokerHands {
     }
 
     public String handleFullHouse(String[] black, String[] white) {
-        List<Integer> whiteFirsts = getCardNumbers(white);
-        List<Integer> blackFirsts = getCardNumbers(black);
-        String winner = "White";
-        Map<String, Integer> whiteFullHouse = getFullHouse(whiteFirsts);
-        Map<String, Integer> blackFullHouse = getFullHouse(blackFirsts);
+        List<Integer> whitePokerNumbers = getCardNumbers(white);
+        List<Integer> blackPokerNumbers = getCardNumbers(black);
+        Map<String, Integer> whiteFullHouse = getFullHouse(whitePokerNumbers);
+        Map<String, Integer> blackFullHouse = getFullHouse(blackPokerNumbers);
+        String winner = null;
+        Map<String, Integer> fullHouse = null;
         if (whiteFullHouse == null) {
             winner = "Black";
-            return String.format("%s wins. - with full house: %s over %s", winner, cardNames[blackFullHouse.get("kind")], cardNames[blackFullHouse.get("pair")]);
+            fullHouse = blackFullHouse;
+        } else if (blackFullHouse == null) {
+            winner = "White";
+            fullHouse = whiteFullHouse;
+        } else {
+            if (blackFullHouse.get("kind") > whiteFullHouse.get("kind")) {
+                winner = "Black";
+                fullHouse = blackFullHouse;
+            } else if (blackFullHouse.get("kind") < whiteFullHouse.get("kind")) {
+                winner = "White";
+                fullHouse = whiteFullHouse;
+            } else if (blackFullHouse.get("kind").equals(whiteFullHouse.get("kind")) && blackFullHouse.get("pair") > whiteFullHouse.get("pair")) {
+                winner = "Black";
+                fullHouse = blackFullHouse;
+            } else if (blackFullHouse.get("kind").equals(whiteFullHouse.get("kind")) && blackFullHouse.get("pair") < whiteFullHouse.get("pair")) {
+                winner = "White";
+                fullHouse = whiteFullHouse;
+            } else {
+                return "Tie";
+            }
         }
-        if (blackFullHouse == null) {
-            return String.format("%s wins. - with full house: %s over %s", winner, cardNames[whiteFullHouse.get("kind")], cardNames[whiteFullHouse.get("pair")]);
-        }
-        if (blackFullHouse.get("kind") > whiteFullHouse.get("kind")) {
-            winner = "Black";
-            return String.format("%s wins. - with full house: %s over %s", winner, cardNames[blackFullHouse.get("kind")], cardNames[blackFullHouse.get("pair")]);
-        }
-        if (blackFullHouse.get("kind") < whiteFullHouse.get("kind")) {
-            return String.format("%s wins. - with full house: %s over %s", winner, cardNames[whiteFullHouse.get("kind")], cardNames[whiteFullHouse.get("pair")]);
-        }
-        if (blackFullHouse.get("kind").equals(whiteFullHouse.get("kind")) && blackFullHouse.get("pair") > whiteFullHouse.get("pair")) {
-            winner = "Black";
-            return String.format("%s wins. - with full house: %s over %s", winner, cardNames[blackFullHouse.get("kind")], cardNames[blackFullHouse.get("pair")]);
-        }
-        if (blackFullHouse.get("kind").equals(whiteFullHouse.get("kind")) && blackFullHouse.get("pair") < whiteFullHouse.get("pair")) {
-            return String.format("%s wins. - with full house: %s over %s", winner, cardNames[whiteFullHouse.get("kind")], cardNames[whiteFullHouse.get("pair")]);
-        }
-        return "Tie";
+        return String.format("%s wins. - with full house: %s over %s", winner, cardNames[fullHouse.get("kind")], cardNames[fullHouse.get("pair")]);
     }
 
     private Map<String, Integer> getFullHouse(List<Integer> pokers) {
@@ -256,33 +266,36 @@ public class PokerHands {
     }
 
     public String handleFourOfAKind(String[] black, String[] white) {
-        List<Integer> whiteFirsts = getCardNumbers(white);
-        List<Integer> blackFirsts = getCardNumbers(black);
-        String winner = "White";
-        Map<String, Integer> whiteFourOfAKindNumbers = getFourOfAKindNumbers(whiteFirsts);
-        Map<String, Integer> blackFourOfAKindNumbers = getFourOfAKindNumbers(blackFirsts);
+        List<Integer> whitePokerNumbers = getCardNumbers(white);
+        List<Integer> blackPokerNumbers = getCardNumbers(black);
+        Map<String, Integer> whiteFourOfAKindNumbers = getFourOfAKindNumbers(whitePokerNumbers);
+        Map<String, Integer> blackFourOfAKindNumbers = getFourOfAKindNumbers(blackPokerNumbers);
+        String winner = null;
+        Map<String, Integer> fourOfAKindNumbers = null;
         if (whiteFourOfAKindNumbers.get("kind") == null) {
             winner = "Black";
-            return String.format("%s wins. - Four of a kind: %ss", winner, cardNames[blackFourOfAKindNumbers.get("kind")]);
-        }
-        if (blackFourOfAKindNumbers.get("kind") == null) {
-            return String.format("%s wins. - Four of a kind: %ss", winner, cardNames[whiteFourOfAKindNumbers.get("kind")]);
-        }
-        if (blackFourOfAKindNumbers.get("kind") > whiteFourOfAKindNumbers.get("kind")) {
+            fourOfAKindNumbers = blackFourOfAKindNumbers;
+        } else if (blackFourOfAKindNumbers.get("kind") == null) {
+            winner = "White";
+            fourOfAKindNumbers = whiteFourOfAKindNumbers;
+        } else if (blackFourOfAKindNumbers.get("kind") > whiteFourOfAKindNumbers.get("kind")) {
             winner = "Black";
-            return String.format("%s wins. - Four of a kind: %ss", winner, cardNames[blackFourOfAKindNumbers.get("kind")]);
+            fourOfAKindNumbers = blackFourOfAKindNumbers;
+        } else {
+            if (blackFourOfAKindNumbers.get("kind") < whiteFourOfAKindNumbers.get("kind")) {
+                winner = "White";
+                fourOfAKindNumbers = whiteFourOfAKindNumbers;
+            } else if (blackFourOfAKindNumbers.get("kind").equals(whiteFourOfAKindNumbers.get("kind")) && blackFourOfAKindNumbers.get("single") > whiteFourOfAKindNumbers.get("single")) {
+                winner = "Black";
+                fourOfAKindNumbers = blackFourOfAKindNumbers;
+            } else if (blackFourOfAKindNumbers.get("kind").equals(whiteFourOfAKindNumbers.get("kind")) && blackFourOfAKindNumbers.get("single") < whiteFourOfAKindNumbers.get("single")) {
+                winner = "White";
+                fourOfAKindNumbers = whiteFourOfAKindNumbers;
+            } else {
+                return "Tie";
+            }
         }
-        if (blackFourOfAKindNumbers.get("kind") < whiteFourOfAKindNumbers.get("kind")) {
-            return String.format("%s wins. - Four of a kind: %ss", winner, cardNames[whiteFourOfAKindNumbers.get("kind")]);
-        }
-        if (blackFourOfAKindNumbers.get("kind").equals(whiteFourOfAKindNumbers.get("kind")) && blackFourOfAKindNumbers.get("single") > whiteFourOfAKindNumbers.get("single")) {
-            winner = "Black";
-            return String.format("%s wins. - Four of a kind: %ss", winner, cardNames[blackFourOfAKindNumbers.get("kind")]);
-        }
-        if (blackFourOfAKindNumbers.get("kind").equals(whiteFourOfAKindNumbers.get("kind")) && blackFourOfAKindNumbers.get("single") < whiteFourOfAKindNumbers.get("single")) {
-            return String.format("%s wins. - Four of a kind: %ss", winner, cardNames[whiteFourOfAKindNumbers.get("kind")]);
-        }
-        return "Tie";
+        return String.format("%s wins. - Four of a kind: %ss", winner, cardNames[fourOfAKindNumbers.get("kind")]);
     }
 
     private Map<String, Integer> getFourOfAKindNumbers(List<Integer> pokers) {
@@ -307,25 +320,26 @@ public class PokerHands {
         List<Integer> blackFirsts = getCardNumbers(black);
         List<String> whiteSuits = getSuits(white);
         List<String> blackSuits = getSuits(black);
-        String winner = "White";
         Integer whiteStraightNumbers = getStraight(whiteFirsts);
         Integer blackStraightNumbers = getStraight(blackFirsts);
         String whiteFlushSuites = getFlush(whiteSuits);
         String blackFlushSuites = getFlush(blackSuits);
+        String winner = null;
         if (whiteStraightNumbers == null || whiteFlushSuites == null) {
             winner = "Black";
-            return String.format("%s wins. - Straight Flush", winner);
+        } else if (blackStraightNumbers == null || blackFlushSuites == null) {
+            winner = "White";
+        } else {
+            if (blackStraightNumbers < whiteStraightNumbers) {
+                winner = "White";
+            } else if (blackStraightNumbers > whiteStraightNumbers) {
+                winner = "Black";
+            } else {
+                return "Tie";
+
+            }
         }
-        if (blackStraightNumbers == null || blackFlushSuites == null) {
-            return String.format("%s wins. - Straight Flush", winner);
-        }
-        if (blackStraightNumbers > whiteStraightNumbers) {
-            winner = "Black";
-            return String.format("%s wins. - Straight Flush", winner);
-        }
-        if (blackStraightNumbers < whiteStraightNumbers) {
-            return String.format("%s wins. - Straight Flush", winner);
-        }
-        return "Tie";
+        return String.format("%s wins. - Straight Flush", winner);
+
     }
 }
