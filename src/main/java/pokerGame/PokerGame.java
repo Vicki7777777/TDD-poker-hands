@@ -24,13 +24,22 @@ public class PokerGame {
         if(isFullHouse(blackArray) || isFullHouse(whiteArray)){
             return "FULL_HOUSE";
         }
+        if(isFlush(blackArray) || isFlush(whiteArray)){
+            return "FLUSH";
+        }
         return null;
+    }
+
+    public boolean isFlush(String[] pokers) {
+        List<String> suits= getSuits(pokers);
+        Set<String> suitsSet = new HashSet<>(suits);
+        return suitsSet.size() == 1;
     }
 
     public boolean isFullHouse(String[] pokers) {
         List<Integer> firstNumbers = getFirstNumber(pokers);
-        Set<Integer> blackAndWhiteSet = new HashSet<>(firstNumbers);
-        return blackAndWhiteSet.size() == 2;
+        Set<Integer> firstNumbersSet = new HashSet<>(firstNumbers);
+        return firstNumbersSet.size() == 2;
     }
 
     public boolean isFourOfAKind(String[] pokers) {
