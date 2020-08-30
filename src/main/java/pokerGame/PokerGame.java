@@ -36,7 +36,24 @@ public class PokerGame {
         if(isTwoPairs(blackArray) || isTwoPairs(whiteArray)){
             return "TWO_PAIRS";
         }
+        if(isPairs(blackArray) || isPairs(whiteArray)){
+            return "PAIRS";
+        }
         return null;
+    }
+
+    private boolean isPairs(String[] pokers) {
+        List<Integer> firstNumbers = getFirstNumber(pokers);
+        int[] buckets = new int[cards.length()];
+        for(Integer value : firstNumbers){
+            buckets[value]++;
+        }
+        for(int i = 0;i<buckets.length-1;i++){
+            if(buckets[i] == 2){
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isTwoPairs(String[] pokers) {
