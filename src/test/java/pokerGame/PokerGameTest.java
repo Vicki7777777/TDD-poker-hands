@@ -110,5 +110,16 @@ public class PokerGameTest {
         //then
         assertEquals("PAIRS", pokersType);
     }
+    @Test
+    public void should_return_HIGH_CARD_when_judgePokerHandsType_given_8H2D6HKC5S_2H4D5H7C8S() {
+        //given
+        String[] white = {"8H", "2D", "6H", "KC", "5S"};
+        String[] black = {"2H", "4D", "5H", "7C", "8S"};
+        PokerGame pokerGame = new PokerGame();
+        //when
+        String pokersType = pokerGame.judgePokerHandsType(white,black);
+        //then
+        assertEquals("HIGH_CARD", pokersType);
+    }
 
 }
