@@ -1,5 +1,7 @@
 package pokerHands;
 
+import com.sun.javafx.image.IntPixelGetter;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -211,33 +213,36 @@ public class PokerHands {
     }
 
     public String handleFullHouse(String[] black, String[] white) {
-        List<Integer> whiteFirsts = getCardNumbers(white);
-        List<Integer> blackFirsts = getCardNumbers(black);
-        String winner = "White";
-        Map<String, Integer> whiteFullHouse = getFullHouse(whiteFirsts);
-        Map<String, Integer> blackFullHouse = getFullHouse(blackFirsts);
+        List<Integer> whitePokerNumbers = getCardNumbers(white);
+        List<Integer> blackPokerNumbers = getCardNumbers(black);
+        Map<String, Integer> whiteFullHouse = getFullHouse(whitePokerNumbers);
+        Map<String, Integer> blackFullHouse = getFullHouse(blackPokerNumbers);
+        String winner = null;
+        Map<String, Integer> fullHouse = null;
         if (whiteFullHouse == null) {
             winner = "Black";
-            return String.format("%s wins. - with full house: %s over %s", winner, cardNames[blackFullHouse.get("kind")], cardNames[blackFullHouse.get("pair")]);
+            fullHouse = blackFullHouse;
+        }else if (blackFullHouse == null) {
+            winner = "White";
+            fullHouse = whiteFullHouse;
+        }else {
+            if (blackFullHouse.get("kind") > whiteFullHouse.get("kind")) {
+                winner = "Black";
+                fullHouse = blackFullHouse;
+            }else if (blackFullHouse.get("kind") < whiteFullHouse.get("kind")) {
+                winner = "White";
+                fullHouse = whiteFullHouse;
+            }else if (blackFullHouse.get("kind").equals(whiteFullHouse.get("kind")) && blackFullHouse.get("pair") > whiteFullHouse.get("pair")) {
+                winner = "Black";
+                fullHouse = blackFullHouse;
+            }else if (blackFullHouse.get("kind").equals(whiteFullHouse.get("kind")) && blackFullHouse.get("pair") < whiteFullHouse.get("pair")) {
+                winner = "White";
+                fullHouse = whiteFullHouse;
+            }else {
+                return "Tie";
+            }
         }
-        if (blackFullHouse == null) {
-            return String.format("%s wins. - with full house: %s over %s", winner, cardNames[whiteFullHouse.get("kind")], cardNames[whiteFullHouse.get("pair")]);
-        }
-        if (blackFullHouse.get("kind") > whiteFullHouse.get("kind")) {
-            winner = "Black";
-            return String.format("%s wins. - with full house: %s over %s", winner, cardNames[blackFullHouse.get("kind")], cardNames[blackFullHouse.get("pair")]);
-        }
-        if (blackFullHouse.get("kind") < whiteFullHouse.get("kind")) {
-            return String.format("%s wins. - with full house: %s over %s", winner, cardNames[whiteFullHouse.get("kind")], cardNames[whiteFullHouse.get("pair")]);
-        }
-        if (blackFullHouse.get("kind").equals(whiteFullHouse.get("kind")) && blackFullHouse.get("pair") > whiteFullHouse.get("pair")) {
-            winner = "Black";
-            return String.format("%s wins. - with full house: %s over %s", winner, cardNames[blackFullHouse.get("kind")], cardNames[blackFullHouse.get("pair")]);
-        }
-        if (blackFullHouse.get("kind").equals(whiteFullHouse.get("kind")) && blackFullHouse.get("pair") < whiteFullHouse.get("pair")) {
-            return String.format("%s wins. - with full house: %s over %s", winner, cardNames[whiteFullHouse.get("kind")], cardNames[whiteFullHouse.get("pair")]);
-        }
-        return "Tie";
+        return String.format("%s wins. - with full house: %s over %s", winner, cardNames[fullHouse.get("kind")], cardNames[fullHouse.get("pair")]);
     }
 
     private Map<String, Integer> getFullHouse(List<Integer> pokers) {
@@ -263,33 +268,36 @@ public class PokerHands {
     }
 
     public String handleFourOfAKind(String[] black, String[] white) {
-        List<Integer> whiteFirsts = getCardNumbers(white);
-        List<Integer> blackFirsts = getCardNumbers(black);
-        String winner = "White";
-        Map<String, Integer> whiteFourOfAKindNumbers = getFourOfAKindNumbers(whiteFirsts);
-        Map<String, Integer> blackFourOfAKindNumbers = getFourOfAKindNumbers(blackFirsts);
+        List<Integer> whitePokerNumbers = getCardNumbers(white);
+        List<Integer> blackPokerNumbers = getCardNumbers(black);
+        Map<String, Integer> whiteFourOfAKindNumbers = getFourOfAKindNumbers(whitePokerNumbers);
+        Map<String, Integer> blackFourOfAKindNumbers = getFourOfAKindNumbers(blackPokerNumbers);
+        String winner = null;
+        Map<String, Integer> fourOfAKindNumbers = null;
         if (whiteFourOfAKindNumbers.get("kind") == null) {
             winner = "Black";
-            return String.format("%s wins. - Four of a kind: %ss", winner, cardNames[blackFourOfAKindNumbers.get("kind")]);
-        }
-        if (blackFourOfAKindNumbers.get("kind") == null) {
-            return String.format("%s wins. - Four of a kind: %ss", winner, cardNames[whiteFourOfAKindNumbers.get("kind")]);
-        }
-        if (blackFourOfAKindNumbers.get("kind") > whiteFourOfAKindNumbers.get("kind")) {
+            fourOfAKindNumbers = blackFourOfAKindNumbers;
+        }else if (blackFourOfAKindNumbers.get("kind") == null) {
+            winner = "White";
+            fourOfAKindNumbers = whiteFourOfAKindNumbers;
+        }else if (blackFourOfAKindNumbers.get("kind") > whiteFourOfAKindNumbers.get("kind")) {
             winner = "Black";
-            return String.format("%s wins. - Four of a kind: %ss", winner, cardNames[blackFourOfAKindNumbers.get("kind")]);
+            fourOfAKindNumbers = blackFourOfAKindNumbers;
+        }else {
+            if (blackFourOfAKindNumbers.get("kind") < whiteFourOfAKindNumbers.get("kind")) {
+                winner = "White";
+                fourOfAKindNumbers = whiteFourOfAKindNumbers;
+            }else if (blackFourOfAKindNumbers.get("kind").equals(whiteFourOfAKindNumbers.get("kind")) && blackFourOfAKindNumbers.get("single") > whiteFourOfAKindNumbers.get("single")) {
+                winner = "Black";
+                fourOfAKindNumbers = blackFourOfAKindNumbers;
+            }else if (blackFourOfAKindNumbers.get("kind").equals(whiteFourOfAKindNumbers.get("kind")) && blackFourOfAKindNumbers.get("single") < whiteFourOfAKindNumbers.get("single")) {
+                winner = "White";
+                fourOfAKindNumbers = whiteFourOfAKindNumbers;
+            }else {
+                return "Tie";
+            }
         }
-        if (blackFourOfAKindNumbers.get("kind") < whiteFourOfAKindNumbers.get("kind")) {
-            return String.format("%s wins. - Four of a kind: %ss", winner, cardNames[whiteFourOfAKindNumbers.get("kind")]);
-        }
-        if (blackFourOfAKindNumbers.get("kind").equals(whiteFourOfAKindNumbers.get("kind")) && blackFourOfAKindNumbers.get("single") > whiteFourOfAKindNumbers.get("single")) {
-            winner = "Black";
-            return String.format("%s wins. - Four of a kind: %ss", winner, cardNames[blackFourOfAKindNumbers.get("kind")]);
-        }
-        if (blackFourOfAKindNumbers.get("kind").equals(whiteFourOfAKindNumbers.get("kind")) && blackFourOfAKindNumbers.get("single") < whiteFourOfAKindNumbers.get("single")) {
-            return String.format("%s wins. - Four of a kind: %ss", winner, cardNames[whiteFourOfAKindNumbers.get("kind")]);
-        }
-        return "Tie";
+        return String.format("%s wins. - Four of a kind: %ss", winner, cardNames[fourOfAKindNumbers.get("kind")]);
     }
 
     private Map<String, Integer> getFourOfAKindNumbers(List<Integer> pokers) {
