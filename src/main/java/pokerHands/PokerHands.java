@@ -86,20 +86,20 @@ public class PokerHands {
         List<Integer> blackPairNumbers = getPairNumbers(blackPokerNumbers);
         String winner = null;
         List<Integer> cardNumbers = null;
-        if(blackPairNumbers.size()!=2){
+        if (blackPairNumbers.size() != 2) {
             winner = "White";
             cardNumbers = whitePairNumbers;
-        }else if (whitePairNumbers.size()!=2){
+        } else if (whitePairNumbers.size() != 2) {
             winner = "Black";
             cardNumbers = blackPairNumbers;
-        }else{
-            if(whitePairNumbers.get(0)>blackPairNumbers.get(0)){
+        } else {
+            if (whitePairNumbers.get(0) > blackPairNumbers.get(0)) {
                 winner = "White";
                 cardNumbers = whitePairNumbers;
-            }else if(whitePairNumbers.get(0)<blackPairNumbers.get(0)){
+            } else if (whitePairNumbers.get(0) < blackPairNumbers.get(0)) {
                 winner = "Black";
                 cardNumbers = blackPairNumbers;
-            }else {
+            } else {
                 return "Tie";
             }
         }
@@ -121,25 +121,28 @@ public class PokerHands {
     public String handleThreeOfAKind(String[] black, String[] white) {
         List<Integer> whiteFirsts = getCardNumbers(white);
         List<Integer> blackFirsts = getCardNumbers(black);
-        String winner = "White";
         Integer whiteThreeOfPairNumbers = getThreeOfPairNumbers(whiteFirsts);
         Integer blackThreeOfPairNumbers = getThreeOfPairNumbers(blackFirsts);
+        String winner = null;
+        Integer cardNumber = null;
         if (whiteThreeOfPairNumbers == null) {
             winner = "Black";
-            return String.format("%s wins. - Three of a kind: %ss", winner, cardNames[blackThreeOfPairNumbers]);
+            cardNumber = blackThreeOfPairNumbers;
+        } else if (blackThreeOfPairNumbers == null) {
+            winner = "White";
+            cardNumber = whiteThreeOfPairNumbers;
+        } else {
+            if (blackThreeOfPairNumbers > whiteThreeOfPairNumbers) {
+                winner = "Black";
+                cardNumber = blackThreeOfPairNumbers;
+            } else if (blackThreeOfPairNumbers < whiteThreeOfPairNumbers) {
+                winner = "White";
+                cardNumber = whiteThreeOfPairNumbers;
+            } else {
+                return "Tie";
+            }
         }
-        if (blackThreeOfPairNumbers == null) {
-            return String.format("%s wins. - Three of a kind: %ss", winner, cardNames[whiteThreeOfPairNumbers]);
-        }
-
-        if (blackThreeOfPairNumbers > whiteThreeOfPairNumbers) {
-            winner = "Black";
-            return String.format("%s wins. - Three of a kind: %ss", winner, cardNames[blackThreeOfPairNumbers]);
-        }
-        if (blackThreeOfPairNumbers < whiteThreeOfPairNumbers) {
-            return String.format("%s wins. - Three of a kind: %ss", winner, cardNames[whiteThreeOfPairNumbers]);
-        }
-        return "Tie";
+        return String.format("%s wins. - Three of a kind: %ss", winner, cardNames[cardNumber]);
     }
 
     public String handleStraight(String[] black, String[] white) {
