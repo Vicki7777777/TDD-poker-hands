@@ -11,7 +11,6 @@ public class PokerGame {
     public static final String FOUR_OF_A_KIND = "FOUR_OF_A_KIND";
     public static final String FULL_HOUSE = "FULL_HOUSE";
     public static final String FLUSH = "FLUSH";
-    public static final String FLUSH_ELSE = "FLUSH_ELSE";
     public static final String STRAIGHT = "STRAIGHT";
     public static final String THREE_OF_A_KIND = "THREE_OF_A_KIND";
     public static final String TWO_PAIRS = "TWO_PAIRS";
@@ -47,7 +46,7 @@ public class PokerGame {
     }
 
     private void handlePokerHands(String[] blackArray, String[] whiteArray, String pokerHandsType) {
-        String gameResult = null;
+        String gameResult;
         switch (pokerHandsType) {
             case STRAIGHT_FLUSH:
                 gameResult = pokerHands.handleStraightFlush(blackArray, whiteArray);
@@ -73,11 +72,11 @@ public class PokerGame {
             case PAIRS:
                 gameResult = pokerHands.handlePair(blackArray, whiteArray);
                 break;
-            case HIGH_CARD:
+            default:
                 gameResult = pokerHands.handleHighCard(blackArray, whiteArray);
                 break;
         }
-        if (pokerHandsType.equals(FLUSH) && gameResult.equals("Tie")) {
+        if (pokerHandsType.equals(FLUSH) && "Tie".equals(gameResult)) {
             pokerHandsType = judgePokerHandsType(blackArray, whiteArray,pokerHandsType);
             handlePokerHands(blackArray,whiteArray,pokerHandsType);
         } else {
