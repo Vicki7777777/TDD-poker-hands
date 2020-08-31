@@ -29,11 +29,12 @@ public class PokerGame {
 
     public void start() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Poker Hands Game Begin!\n");
-        System.out.println("Black:\n");
-        String black = sc.nextLine();
-        System.out.println("White:\n");
-        String white = sc.nextLine();
+        System.out.println("Poker Hands Game Begin!");
+        System.out.println("Tips:[should input five pokers(use blank to split per pokers):AD 2D 3D 4H 5D]");
+        System.out.println("Black:");
+        String black = sc.nextLine().replaceAll(" ","");
+        System.out.println("White:");
+        String white = sc.nextLine().replaceAll(" ","");
         String[] blackArray = inputMessage.handleInput(black);
         String[] whiteArray = inputMessage.handleInput(white);
         String checkResultMessage = inputMessage.checkInput(blackArray, whiteArray);
